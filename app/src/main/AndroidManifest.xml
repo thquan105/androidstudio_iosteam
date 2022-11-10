@@ -14,7 +14,16 @@
         android:theme="@style/Theme.LearnEnglishVocab"
         tools:targetApi="31">
         <activity
+            android:name=".SignUpctivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignInActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HeyActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
