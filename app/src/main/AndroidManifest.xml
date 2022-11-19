@@ -29,7 +29,16 @@
             android:name=".TranslationActivity"
             android:exported="false" />
         <activity
-            android:name=".HomeActivity"
+            android:name=".HeyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignUpctivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +47,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".HomeActivity"
             android:exported="false" />
     </application>
 
