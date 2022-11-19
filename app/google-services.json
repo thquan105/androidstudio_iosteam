@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "64130956057",
+    "project_id": "learnenglishvocab-6ef61",
+    "storage_bucket": "learnenglishvocab-6ef61.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:64130956057:android:e09845868e269c06c06388",
+        "android_client_info": {
+          "package_name": "com.example.learnenglishvocab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "64130956057-pfh3fi0lt6pcd8ujqnpptkbarlsg3hji.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoV04kV0rZh4kOhgWTD5rkXt9eDeTvAFA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "64130956057-pfh3fi0lt6pcd8ujqnpptkbarlsg3hji.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
