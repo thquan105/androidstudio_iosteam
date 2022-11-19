@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game1);
+        setContentView(R.layout.activity_main);
 
         firestore = FirebaseFirestore.getInstance();
         Map<String,Object> user = new HashMap<>();

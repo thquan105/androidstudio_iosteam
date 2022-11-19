@@ -55,7 +55,6 @@ public class Game1Adapter extends RecyclerView.Adapter<Game1Adapter.Game1ViewHol
 
             imgGame = itemView.findViewById(R.id.img_game);
             tvNghiaTuVung = itemView.findViewById(R.id.tv_img);
-
         }
     }
 }

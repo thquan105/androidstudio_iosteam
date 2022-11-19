@@ -12,7 +12,7 @@ import com.example.learnenglishvocab.Adapter.Game1Adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Game1Activity extends AppCompatActivity {
+public class GameChonHinh extends AppCompatActivity {
 
     private RecyclerView rcvGame1;
     private Button btQuayLai, btTiepTheo,btKiemtra;
@@ -20,7 +20,7 @@ public class Game1Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game1);
+        setContentView(R.layout.activity_gamechonhinh);
 
         btQuayLai = findViewById(R.id.btnQuayLai);
         btTiepTheo = findViewById(R.id.btnTiepTheo);
