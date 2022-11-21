@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="Chỉnh sửa tài khoản"/>
-    <item android:title="Chỉnh sửa thông tin cá nhân"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="Chỉnh sửa tài khoản"
+        android:id="@+id/itemchinhsuataikhoan"/>
+    <item android:title="Chỉnh sửa thông tin cá nhân"
+        android:id="@+id/itemchinhsuattcn"/>
+    <item android:icon="@drawable/ic_baseline_arrow_back_ios_new_24"
+        app:showAsAction="ifRoom"/>
 </menu>
