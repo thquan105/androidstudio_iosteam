@@ -2,18 +2,36 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/corner_bg"
     android:orientation="vertical"
-    android:layout_margin="16dp">
-    <TextView
+    android:layout_margin="16dp"
+    android:backgroundTint="@color/white">
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Chỉnh sửa tài khoản"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:gravity="center"
-        android:padding="16dp"/>
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="301dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="Chỉnh sửa tài khoản"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/img_closeDialogChinhsuatk"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_close_24"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -30,12 +48,13 @@
             android:padding="16dp"/>
 
         <EditText
+            android:id="@+id/edt_tendangnhap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edt_bgr_corner"
             android:hint="Tendangnhap"
             android:padding="16dp"
-            android:textSize="20sp" />
+            />
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -51,15 +70,28 @@
             android:gravity="left"
             android:textSize="20sp"
             android:padding="16dp"/>
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="matkhaucu"
-            android:textSize="20sp"
+            app:passwordToggleEnabled="true"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/edt_bgr_corner"
-            android:padding="16dp"
+            app:startIconDrawable="@drawable/ic_baseline_lock_24"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false">
+            <EditText
+                android:id="@+id/edt_matkhaucu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="#00000000"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-            />
+
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -75,14 +107,26 @@
             android:gravity="left"
             android:textSize="20sp"
             android:padding="16dp"/>
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="matkhaumoi"
-            android:textSize="20sp"
+            app:passwordToggleEnabled="true"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/edt_bgr_corner"
-            android:padding="16dp"
-            />
+            app:startIconDrawable="@drawable/ic_baseline_lock_24"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false">
+            <EditText
+                android:id="@+id/edt_matkhaumoi"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="#00000000"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp" />
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -91,6 +135,7 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
         <TextView
+            android:id="@+id/matkhaumoi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Xác nhận mật khẩu"
@@ -98,33 +143,39 @@
             android:gravity="left"
             android:textSize="20sp"
             android:padding="16dp"/>
-        <EditText
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="xacnhanmatkhau"
-            android:textSize="20sp"
+            app:passwordToggleEnabled="true"
+            android:layout_gravity="center_horizontal"
             android:background="@drawable/edt_bgr_corner"
-            android:padding="16dp"
-            />
-        <LinearLayout
+            app:startIconDrawable="@drawable/ic_baseline_lock_24"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:hintEnabled="false">
+            <EditText
+                android:id="@+id/edt_xacnhanmatkhau"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="#00000000"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingLeft="10dp" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+    <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
             >
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Hủy"
-                android:textStyle="bold"
-                android:background="@drawable/btn_bgr"
-                android:layout_marginEnd="10dp"
-
-                />
-            <androidx.appcompat.widget.AppCompatButton
+        <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_luuchinhsuatk"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -132,12 +183,6 @@
                 android:text="Lưu"
                 android:background="@drawable/btn_bgr"
                 />
-        </LinearLayout>
     </LinearLayout>
-
-
-
-
-        />
 
 </LinearLayout>
