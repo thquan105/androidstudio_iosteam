@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.learnenglishvocab">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -29,7 +30,7 @@
             android:name=".TranslationActivity"
             android:exported="false" />
         <activity
-            android:name=".HeyActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".SignUpctivity"
@@ -38,7 +39,7 @@
             android:name=".SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".HeyActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

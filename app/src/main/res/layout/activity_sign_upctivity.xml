@@ -76,7 +76,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/edtEmailSignUp"
                 android:layout_width="326dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="68dp"
@@ -136,6 +136,7 @@
                 app:passwordToggleEnabled="true">
 
                 <EditText
+                    android:id="@+id/edtPassSignUp"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -155,6 +156,7 @@
 
 
                 <EditText
+                    android:id="@+id/edtAgainPass"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -163,6 +165,7 @@
 
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="300dp"
@@ -244,7 +247,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/tvDangNhap"
         android:layout_width="101dp"
         android:layout_height="25dp"
 
