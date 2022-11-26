@@ -17,39 +17,42 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Switch;
 import android.widget.Toast;
 
-public class hoso extends AppCompatActivity {
+public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hoso);
         //nut back
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+    public void showPopup(View v){
+        PopupMenu popup=new PopupMenu(this,v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.menu_chinhsuahoso);
+        popup.show();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_chinhsuahoso,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        switch (menuItem.getItemId()){
             case R.id.itemchinhsuataikhoan:
                 openChinhsuataikhoanDialog(Gravity.CENTER);
-                break;
+                return true;
             case R.id.itemchinhsuattcn:
                 openChinhsuattcnDialog(Gravity.CENTER);
-                break;
+                return true;
+            default:
+                return false;
         }
 
-        return super.onOptionsItemSelected(item);
-
     }
+
+    //dialog
     private  void openChinhsuataikhoanDialog(int gravity){
         final Dialog dialog=new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
