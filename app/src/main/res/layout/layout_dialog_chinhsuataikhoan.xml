@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="16dp"
-            android:text="Chỉnh sửa tài khoản"
+            android:text="Đổi mật khẩu"
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
@@ -31,30 +31,6 @@
             android:src="@drawable/ic_baseline_close_24"
             android:layout_weight="1"/>
 
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tên đăng nhập"
-            android:textColor="@color/black"
-            android:gravity="left"
-            android:textSize="20sp"
-            android:padding="16dp"/>
-
-        <EditText
-            android:id="@+id/edt_tendangnhap"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edt_bgr_corner"
-            android:hint="Tendangnhap"
-            android:padding="16dp"
-            />
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"

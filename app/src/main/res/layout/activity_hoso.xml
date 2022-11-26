@@ -6,19 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".hoso">
 
+
     <ImageView
         android:id="@+id/bgr_profile"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_width="482dp"
+        android:layout_height="313dp"
         android:src="@drawable/bgr_profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_avt"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -29,9 +30,20 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintVertical_bias="0.085"
         app:layout_constraintWidth_percent=".5" />
 
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_add_avt"
+        app:layout_constraintBottom_toBottomOf="@+id/img_avt"
+        app:layout_constraintEnd_toEndOf="@+id/img_avt"
+        app:layout_constraintHorizontal_bias="0.916"
+        app:layout_constraintStart_toStartOf="@+id/img_avt"
+        app:layout_constraintTop_toTopOf="@+id/img_avt"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView"
@@ -166,22 +178,23 @@
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="326dp"
+        android:layout_height="24dp"
         android:progressDrawable="@drawable/custom_progress_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.536"
+        app:layout_constraintHorizontal_bias="0.524"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bgr_profile"
-        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.109"
         app:layout_constraintWidth_percent=".8" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="67dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:onClick="showPopup"
         android:src="@drawable/ic_3cham"
         app:layout_constraintBottom_toTopOf="@+id/img_avt"
@@ -193,10 +206,10 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
-
+        android:layout_marginLeft="10dp"
         app:layout_constraintBottom_toTopOf="@+id/img_avt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

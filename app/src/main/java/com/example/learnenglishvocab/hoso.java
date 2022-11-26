@@ -73,7 +73,6 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         }else{
             dialog.setCancelable(false);
         }
-        EditText edttendangnhap=dialog.findViewById(R.id.edt_tendangnhap);
         EditText edtmatkhaucu=dialog.findViewById(R.id.edt_matkhaucu);
         EditText edtmatkhaumoi=dialog.findViewById(R.id.edt_matkhaumoi);
         EditText edtxacnhanmatkhau=dialog.findViewById(R.id.edt_xacnhanmatkhau);
