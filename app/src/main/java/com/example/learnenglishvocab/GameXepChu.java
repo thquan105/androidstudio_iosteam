@@ -10,11 +10,12 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
 
@@ -23,9 +24,10 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     private TuKhoaAdapter chuAdapter,dapAnAdapter;
     private CardView imgbtnRefresh;
     private Dialog dialogDung,dialogSai;
-    private String tuTA = "pencils";
+    private String tuTA;
     final private int maxCotGridlayout = 7;
     private GridLayoutManager gridLayoutManagerchu,gridLayoutManagerAnswer;
+    private TextView txtTuTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +46,9 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     private void init(){
         rcvChu = findViewById(R.id.lvtukhoa);
         rcvAnswer = findViewById(R.id.rcvdapan);
-
+        txtTuTV = findViewById(R.id.tvNghiaG2);
+        txtTuTV.setText("bút chì");
+        tuTA = "pencil";
         //Vô hiệu hóa trượt recycleview
         rcvChu.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -74,7 +78,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
         }
 
         arrChu.addAll(arrDung);
-        shuffleArray(arrChu);
+        xaoTronChu(arrChu);
 
 
         //Làm mới rcv
@@ -88,24 +92,24 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
         chuAdapter = new TuKhoaAdapter(arrChu,this);
         dapAnAdapter = new TuKhoaAdapter(arrAnswer,this);
 
-        int cotChuMax = arrChu.size();
-        if (cotChuMax>7)
-            cotChuMax = 7;
-        gridLayoutManagerchu = new GridLayoutManager(this,cotChuMax);
-        rcvChu.setLayoutManager(gridLayoutManagerchu);
+        setGridlayout();
 
         chuAdapter = new TuKhoaAdapter(arrChu, new InterfaceClickChu() {
             @Override
             public void onItemClickChu(String chu) {
                 arrAnswer.add(chu);
+                arrChu.remove(chu);
+
+                setGridlayout();
+
+                chuAdapter.notifyDataSetChanged();
                 int cotAnsmax = arrAnswer.size();
                 if (cotAnsmax>6)
                     cotAnsmax = 6;
                 gridLayoutManagerAnswer = new GridLayoutManager(GameXepChu.this,cotAnsmax);
                 rcvAnswer.setLayoutManager(gridLayoutManagerAnswer);
                 dapAnAdapter.notifyDataSetChanged();
-                if(arrAnswer.size()==arrChu.size()){
-
+                if(arrAnswer.size()==arrDung.size()){
                     int check = 0;
                     for (int i = 0; i < arrAnswer.size();i++){
                         if(arrAnswer.get(i).equals(arrDung.get(i))==true){
@@ -113,48 +117,43 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
                         }
                     }
                     if(check==arrDung.size()){
-                        dialogDung = new Dialog(GameXepChu.this);
-                        dialogDung.setContentView(R.layout.dialog_game2_dung);
-
-                        Button btnnext =dialogDung.findViewById(R.id.btnDlgG2Dung);
-                        btnnext.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                dialogDung.dismiss();
-                                Lammoircv();
-                            }
-                        });
-                        dialogDung.show();
+                        try
+                        {
+                            Thread.sleep(500);
+                            showCustomDialog(true);
+                        }
+                        catch(InterruptedException ex)
+                        {
+                            Thread.currentThread().interrupt();
+                        }
                     }
                     else{
                         for (String s: arrDung)
                             System.out.println(s);
 //                        Toast.makeText(GameXepChu.this,"Đồ ngu",Toast.LENGTH_SHORT).show();
-                        dialogSai = new Dialog(GameXepChu.this);
-                        dialogSai.setContentView(R.layout.dialog_game2_sai);
-                        dialogSai.show();
-                        Button btntry =dialogSai.findViewById(R.id.btnDlgG2Sai);
-                        btntry.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                dialogSai.dismiss();
-                            }
-                        });
+                        showCustomDialog(false);
                         arrChu.removeAll(arrChu);
-                        arrChu.addAll(shuffleArray(arrDung));
+                        arrChu.addAll(arrDung);
+                        xaoTronChu(arrChu);
                         Lammoircv();
                     }
                 }
 
 //                Toast.makeText(GameXepChu.this,chu,Toast.LENGTH_SHORT).show();
-//                for (int i = 0; i < arrChu.size();i++){
-//                    if(arrChu.get(i).equals(chu)==true){
-//                        arrChu.set(i,"");
-//                        chuAdapter.notifyDataSetChanged();
-//                        i=arrChu.size();
-////                        Toast.makeText(GameXepChu.this,chu,Toast.LENGTH_SHORT).show();
-//                    }
-//                }
+//
+            }
+
+        });
+
+        dapAnAdapter = new TuKhoaAdapter(arrAnswer, new InterfaceClickChu() {
+            @Override
+            public void onItemClickChu(String tukhoa) {
+//                Toast.makeText(GameXepChu.this,tukhoa,Toast.LENGTH_SHORT).show();
+                arrChu.add(tukhoa);
+                arrAnswer.remove(tukhoa);
+                setGridlayout();
+                chuAdapter.notifyDataSetChanged();
+                dapAnAdapter.notifyDataSetChanged();
             }
         });
 
@@ -165,6 +164,10 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     private void Lammoircv() {
         arrAnswer.removeAll(arrAnswer);
         dapAnAdapter.notifyDataSetChanged();
+        arrChu.removeAll(arrChu);
+        arrChu.addAll(arrDung);
+        setGridlayout();
+        xaoTronChu(arrChu);
         rcvChu.setAdapter(chuAdapter);
         rcvAnswer.setAdapter(dapAnAdapter);
     }
@@ -172,7 +175,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     @Override
     public void onItemClickChu(String tukhoa) {
     }
-    private ArrayList<String> shuffleArray(ArrayList<String> ar) {
+    private ArrayList<String> xaoTronChu(ArrayList<String> ar) {
         Random rnd = new Random();
         for (int i = ar.size() - 1; i > 0; i--) {
             int index = rnd.nextInt(i + 1);
@@ -181,5 +184,48 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
             ar.set(i,a);
         }
         return ar;
+    }
+
+    private void showCustomDialog(boolean win){
+        if (win){
+            dialogDung = new Dialog(GameXepChu.this);
+            dialogDung.setContentView(R.layout.dialog_game2_dung);
+            dialogDung.setCancelable(false);
+            dialogDung.setCanceledOnTouchOutside(false);
+            Button btnnext =dialogDung.findViewById(R.id.btnDlgG2Dung);
+            btnnext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogDung.dismiss();
+                    Lammoircv();
+                }
+            });
+
+            dialogDung.show();
+        }
+        else{
+            dialogSai = new Dialog(GameXepChu.this);
+            dialogSai.setContentView(R.layout.dialog_game2_sai);
+            dialogSai.setCancelable(false);
+            dialogSai.setCanceledOnTouchOutside(false);
+            dialogSai.show();
+            Button btntry =dialogSai.findViewById(R.id.btnDlgG2Sai);
+            btntry.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogSai.dismiss();
+                }
+            });
+        }
+    }
+
+    private void setGridlayout(){
+        int cotChuMax = arrChu.size();
+        if (cotChuMax>7)
+            cotChuMax = 7;
+        if(cotChuMax!=0) {
+            gridLayoutManagerchu = new GridLayoutManager(this, cotChuMax);
+            rcvChu.setLayoutManager(gridLayoutManagerchu);
+        }
     }
 }

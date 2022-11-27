@@ -51,8 +51,8 @@ public class TuKhoaAdapter extends RecyclerView.Adapter<TuKhoaAdapter.TuKhoaAdap
                 @Override
                 public void onClick(View view) {
                     interfaceClickChu.onItemClickChu(tukhoa);
-                    if (itemView.getVisibility()==View.VISIBLE)
-                        itemView.setVisibility(View.GONE);
+//                    if (itemView.getVisibility()==View.VISIBLE)
+//                        itemView.setVisibility(View.GONE);
                 }
             });
 

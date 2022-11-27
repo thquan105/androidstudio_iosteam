@@ -14,13 +14,13 @@
         android:textSize="25dp"
         android:textStyle="bold"
         android:textColor="#EA0000"
-        android:text="Wrong"/>
+        android:text="Không chính xác"/>
     <Button
         android:id="@+id/btnDlgG2Sai"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Try Again"
+        android:text="Thử lại"
         android:backgroundTint="#27ACA7"
         android:layout_gravity="center"/>
 
