@@ -9,40 +9,32 @@
     tools:context=".GameXepChu">
 
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             >
-
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginVertical="3dp"
-                android:layout_marginLeft="10dp"
-                android:backgroundTint="#6AC5A1"
-                app:cardCornerRadius="250dp">
-
-                <TextView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"
-                    android:text="X"
-                    android:textSize="30dp" />
+                android:id="@+id/cvback"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:cardCornerRadius="250dp"
+                android:layout_marginLeft="7dp"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginTop="7dp"
+                >
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/previous"/>
             </androidx.cardview.widget.CardView>
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="GAME 2"
-                android:textColor="@color/black"
-                android:textSize="24dp"
-                android:textStyle="bold" />
 
-        </RelativeLayout>
+
+        </LinearLayout>
 
 
     <TextView
@@ -55,11 +47,26 @@
         android:textSize="30dp"
         android:textColor="@color/black"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcvdapan"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        />
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+
+        android:elevation="10dp"
+        app:cardCornerRadius="15dp"
+        android:background="@drawable/bgpurple"
+        >
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcvdapan"
+            android:layout_width="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_gravity="center"
+            android:nestedScrollingEnabled="false"
+            android:layout_height="130dp"
+            android:padding="10dp"
+            />
+    </androidx.cardview.widget.CardView>
+
 
     <ImageButton
         android:id="@+id/btnRefresh"
@@ -71,8 +78,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lvtukhoa"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:nestedScrollingEnabled="false"
         android:layout_gravity="center"
-        android:layout_height="100dp"
         android:layout_marginTop="150dp"/>
 </LinearLayout>
