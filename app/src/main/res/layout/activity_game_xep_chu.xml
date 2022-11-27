@@ -51,10 +51,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-
         android:elevation="10dp"
         app:cardCornerRadius="15dp"
-        android:background="@drawable/bgpurple"
+        android:backgroundTint="#E7FF90"
         >
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcvdapan"
@@ -63,23 +62,41 @@
             android:layout_gravity="center"
             android:nestedScrollingEnabled="false"
             android:layout_height="130dp"
-            android:padding="10dp"
             />
     </androidx.cardview.widget.CardView>
 
 
-    <ImageButton
-        android:id="@+id/btnRefresh"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/refresh"
-        android:foregroundTint="#00000000"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvrefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="250dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginRight="17dp"
+            android:layout_alignParentRight="true"
+            android:clickable="true"
+            android:foreground="?attr/selectableItemBackground"
+            >
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bin" />
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lvtukhoa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:nestedScrollingEnabled="false"
+        android:paddingHorizontal="10dp"
         android:layout_gravity="center"
         android:layout_marginTop="150dp"/>
 </LinearLayout>

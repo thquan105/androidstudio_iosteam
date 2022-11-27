@@ -21,9 +21,9 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     private RecyclerView rcvChu,rcvAnswer;
     private ArrayList<String> arrChu, arrAnswer,arrDung;
     private TuKhoaAdapter chuAdapter,dapAnAdapter;
-    private ImageButton imgbtnRefresh;
+    private CardView imgbtnRefresh;
     private Dialog dialogDung,dialogSai;
-    private String tuTA = "recycler";
+    private String tuTA = "pencils";
     final private int maxCotGridlayout = 7;
     private GridLayoutManager gridLayoutManagerchu,gridLayoutManagerAnswer;
 
@@ -59,7 +59,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
             }
         });
 
-        imgbtnRefresh = findViewById(R.id.btnRefresh);
+        imgbtnRefresh = findViewById(R.id.cvrefresh);
 
         String[] strSplit = null;
         strSplit = tuTA.toUpperCase().split("");
@@ -114,9 +114,9 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
                     }
                     if(check==arrDung.size()){
                         dialogDung = new Dialog(GameXepChu.this);
-                        dialogDung.setContentView(R.layout.dialog_game2);
+                        dialogDung.setContentView(R.layout.dialog_game2_dung);
 
-                        Button btnnext =dialogDung.findViewById(R.id.btnDialoggame2);
+                        Button btnnext =dialogDung.findViewById(R.id.btnDlgG2Dung);
                         btnnext.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -129,7 +129,17 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
                     else{
                         for (String s: arrDung)
                             System.out.println(s);
-                        Toast.makeText(GameXepChu.this,"Đồ ngu",Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(GameXepChu.this,"Đồ ngu",Toast.LENGTH_SHORT).show();
+                        dialogSai = new Dialog(GameXepChu.this);
+                        dialogSai.setContentView(R.layout.dialog_game2_sai);
+                        dialogSai.show();
+                        Button btntry =dialogSai.findViewById(R.id.btnDlgG2Sai);
+                        btntry.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                dialogSai.dismiss();
+                            }
+                        });
                         arrChu.removeAll(arrChu);
                         arrChu.addAll(shuffleArray(arrDung));
                         Lammoircv();
@@ -155,7 +165,6 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     private void Lammoircv() {
         arrAnswer.removeAll(arrAnswer);
         dapAnAdapter.notifyDataSetChanged();
-        shuffleArray(arrChu);
         rcvChu.setAdapter(chuAdapter);
         rcvAnswer.setAdapter(dapAnAdapter);
     }
