@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <item android:title="Đổi mật khẩu"
+        android:id="@+id/itemchinhsuataikhoan"/>
+    <item android:title="Chỉnh sửa thông tin cá nhân"
+        android:id="@+id/itemchinhsuattcn"/>
+</menu>
