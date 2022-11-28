@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -108,7 +109,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.hengio:
             {
-
+                startActivity(new Intent(HomeActivity.this, TimerActivity.class));
             }
             case R.id.share:
             {
