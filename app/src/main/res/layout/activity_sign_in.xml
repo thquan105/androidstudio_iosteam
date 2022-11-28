@@ -82,7 +82,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editText2"
+                android:id="@+id/edtEmail"
                 android:layout_width="326dp"
                 android:layout_height="42dp"
                 android:layout_marginTop="120dp"
@@ -119,6 +119,7 @@
 
 
                 <EditText
+                    android:id="@+id/edtPass"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@android:color/transparent"
@@ -126,6 +127,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="292dp"
@@ -237,10 +239,9 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/tvDangKy"
         android:layout_width="101dp"
         android:layout_height="25dp"
-
         android:layout_marginBottom="28dp"
         android:gravity="center"
         android:text="Đăng ký"

@@ -1,21 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DesignSurface">
-    <option name="filePathToZoomLevelMap">
-      <map>
-        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/drawable/boder_button.xml" value="0.223" />
-        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_game1.xml" value="0.37037037037037035" />
-        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_game2.xml" value="0.37037037037037035" />
-        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_home.xml" value="0.37037037037037035" />
-        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_sign_upctivity.xml" value="0.3875" />
-        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_timer.xml" value="0.3875" />
-        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_translation.xml" value="0.37037037037037035" />
-        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/customswitch.xml" value="0.38645833333333335" />
-        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/item_category.xml" value="0.37037037037037035" />
-        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/menu/main_menu.xml" value="0.37037037037037035" />
-      </map>
-    </option>
-  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
