@@ -45,13 +45,13 @@
             android:name=".SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".GameXepChu"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".hoso"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".GameXepChu"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

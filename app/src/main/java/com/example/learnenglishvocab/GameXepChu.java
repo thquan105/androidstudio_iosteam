@@ -3,12 +3,14 @@ package com.example.learnenglishvocab;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Application;
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -19,23 +21,21 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Random;
 
 public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
 
     private RecyclerView rcvChu,rcvAnswer;
-    private ArrayList<String> arrChu, arrAnswer,arrDung, arrTV,arrTA;
+    private ArrayList<String> arrChu, arrAnswer,arrDung, arrTV,arrTA, arrGoiY, arrXaoGoiY;
     private TuKhoaAdapter chuAdapter,dapAnAdapter;
-    private CardView imgbtnRefresh;
+    private CardView cvRefresh, cvGoiY;
     private Dialog dialog;
     private String tuTA,tuTV;
     private int viTriTu = 0;
     private GridLayoutManager gridLayoutManagerchu,gridLayoutManagerAnswer;
-    private TextView txtTuTV;
+    private TextView txtTuTV,txtGoiY;
+    private MediaPlayer clicksound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
         arrTV.add("Thứ Hai");
 
         arrTA = new ArrayList<String>();
-        arrTA.add("white");
+        arrTA.add("friend");
         arrTA.add("spring");
         arrTA.add("monday");
 
@@ -63,27 +63,21 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
 
     private void init(){
         rcvChu = findViewById(R.id.lvtukhoa);
+        rcvChu.setNestedScrollingEnabled(false);
         rcvAnswer = findViewById(R.id.rcvdapan);
         txtTuTV = findViewById(R.id.tvNghiaG2);
+        cvRefresh = findViewById(R.id.cvrefresh);
+        txtGoiY = findViewById(R.id.txtGoiy);
+        txtGoiY.setVisibility(View.GONE);
+
+        cvGoiY = findViewById(R.id.cvtip);
+
         tuTV = arrTV.get(viTriTu);
         tuTA = arrTA.get(viTriTu);
         tuTV = tuTV.substring(0, 1).toUpperCase() + tuTV.substring(1);
         txtTuTV.setText(tuTV);
-        //Vô hiệu hóa trượt recycleview
-        rcvChu.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return true;
-            }
-        });
-        rcvAnswer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                return true;
-            }
-        });
 
-        imgbtnRefresh = findViewById(R.id.cvrefresh);
+
 
         String[] strSplit = null;
         strSplit = tuTA.toUpperCase().split("");
@@ -91,18 +85,62 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
         arrChu = new ArrayList<>();
         arrDung = new ArrayList<>();
         arrAnswer = new ArrayList<>();
+        arrGoiY = new ArrayList<>();
+
 
         for(String i: strSplit){
             if (i.equals("")==false)
                 arrDung.add(i);
         }
 
+        txtGoiY.setText("");
+
+        //GỢI Ý TỪ
+        for (String s : arrDung){
+            arrGoiY.add("_");
+        }
+
+        arrXaoGoiY = new ArrayList<>();
+
+        arrXaoGoiY.addAll(arrDung);
+        xaoTronChu(arrXaoGoiY);
+        cvGoiY.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                txtGoiY.setText("");
+                int sotudagoiy = 0;
+                int vitrigoiy = 0;
+
+                for(String s: arrGoiY){
+                    if (!s.equals("_")){
+                        sotudagoiy++;
+                    }
+                }
+                if (sotudagoiy==arrGoiY.size()-1){
+                    cvGoiY.setEnabled(false);
+                }
+                for (int i = 0;i<arrDung.size();i++){
+                    if (arrXaoGoiY.get(sotudagoiy).equals(arrDung.get(i))){
+                        vitrigoiy = i;
+                    }
+                }
+                arrGoiY.set(vitrigoiy,arrDung.get(vitrigoiy));
+                for (String s:arrGoiY) {
+                    txtGoiY.setText(txtGoiY.getText()+s);
+                }
+
+                txtGoiY.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+
         arrChu.addAll(arrDung);
         xaoTronChu(arrChu);
 
 
         //Làm mới rcv
-        imgbtnRefresh.setOnClickListener(new View.OnClickListener() {
+        cvRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Lammoircv();
@@ -139,6 +177,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
                     if(check==arrDung.size()){
                         if (viTriTu == arrTA.size()-1){
 //                Toast.makeText(GameXepChu.this,"hoàn thành",Toast.LENGTH_SHORT).show();
+                            startSound(R.raw.traloidung);
                             showCustomDialog(true);
                             TextView txtChucmung = dialog.findViewById(R.id.txtThongbaodialog);
                             txtChucmung.setText("Hoàn thành");
@@ -152,10 +191,14 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
                                 }
                             });
                         }
-                        else showCustomDialog(true);
+                        else {
+                            showCustomDialog(true);
+                            startSound(R.raw.traloidung);
+                        }
                     }
                     else{
                         showCustomDialog(false);
+                        startSound(R.raw.traloisai);
                         arrChu.removeAll(arrChu);
                         arrChu.addAll(arrDung);
                         xaoTronChu(arrChu);
@@ -198,6 +241,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     @Override
     public void onItemClickChu(String tukhoa) {
     }
+
     private ArrayList<String> xaoTronChu(ArrayList<String> ar) {
         Random rnd = new Random();
         for (int i = ar.size() - 1; i > 0; i--) {
@@ -237,6 +281,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
                         arrDung.removeAll(arrDung);
                         TachChu(arrTA.get(viTriTu),arrDung);
                         Lammoircv();
+                        refreshGoiY();
                         dialog.dismiss();
                     }
                 }
@@ -279,4 +324,28 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
             rcvChu.setLayoutManager(gridLayoutManagerchu);
         }
     }
+    private void startSound(int resources){
+        clicksound = MediaPlayer.create(GameXepChu.this, resources);
+        clicksound.start();
+        try {
+            if (clicksound.isPlaying()) {
+                clicksound.stop();
+                clicksound.release();
+//                        clicksound = null;
+                clicksound = MediaPlayer.create(GameXepChu.this, resources);
+            } clicksound.start();
+        } catch(Exception e) { e.printStackTrace(); }
+    }
+    private void refreshGoiY(){
+        txtGoiY.setText("");
+        cvGoiY.setEnabled(true);
+        arrGoiY.removeAll(arrGoiY);
+        for (String s : arrDung){
+            arrGoiY.add("_");
+        }
+        arrXaoGoiY.removeAll(arrXaoGoiY);
+        arrXaoGoiY.addAll(arrDung);
+        xaoTronChu(arrXaoGoiY);
+    }
 }
+
