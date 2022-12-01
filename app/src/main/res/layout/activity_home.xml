@@ -76,6 +76,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/btn_translation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -92,6 +93,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/btn_Cate_Game_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
@@ -108,6 +110,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/btn_Cate_Game_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
