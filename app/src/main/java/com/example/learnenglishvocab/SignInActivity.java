@@ -62,7 +62,7 @@ public class SignInActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
-//    FirebaseDatabase database;
+
 
     String userID;
     @Override
@@ -91,7 +91,6 @@ public class SignInActivity extends AppCompatActivity {
 
 
 
-
         sharedPreferences= getSharedPreferences("dataLogin", MODE_PRIVATE);
         // lấy giá trị từ sharePreferences
         edtEmail.setText(sharedPreferences.getString("email",""));
@@ -99,7 +98,6 @@ public class SignInActivity extends AppCompatActivity {
         cbRemenber.setChecked(sharedPreferences.getBoolean("checked",false));
 
 
-//        database = FirebaseDatabase.getInstance("https://learnenglishvocab-6ef61-default-rtdb.firebaseio.com/");
         tvDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
