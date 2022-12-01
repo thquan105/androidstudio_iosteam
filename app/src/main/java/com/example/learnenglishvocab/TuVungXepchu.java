@@ -1,10 +1,10 @@
 package com.example.learnenglishvocab;
 
-public class TuKhoaGameXepchu {
+public class TuVungXepchu {
     private String tuvung;
     private String nghia;
 
-    public TuKhoaGameXepchu(String tuvung, String nghia) {
+    public TuVungXepchu(String tuvung, String nghia) {
         this.tuvung = tuvung;
         this.nghia = nghia;
     }

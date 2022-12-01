@@ -3,31 +3,33 @@ package com.example.learnenglishvocab;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
 
     private RecyclerView rcvChu,rcvAnswer;
-    private ArrayList<String> arrChu, arrAnswer,arrDung, arrTV,arrTA, arrGoiY, arrXaoGoiY;
+    private ArrayList<String> arrChu, arrAnswer,arrDung, arrGoiY, arrXaoGoiY,arrCheckTuGoiY;
     private TuKhoaAdapter chuAdapter,dapAnAdapter;
     private CardView cvRefresh, cvGoiY;
     private Dialog dialog;
@@ -36,22 +38,41 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     private GridLayoutManager gridLayoutManagerchu,gridLayoutManagerAnswer;
     private TextView txtTuTV,txtGoiY;
     private MediaPlayer clicksound;
-
+    private ArrayList<TuVungXepchu> arrTuVung;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_xep_chu);
-        arrTV = new ArrayList<String>();
-        arrTV.add("Màu trắng");
-        arrTV.add("Mùa xuân");
-        arrTV.add("Thứ Hai");
 
-        arrTA = new ArrayList<String>();
-        arrTA.add("friend");
-        arrTA.add("spring");
-        arrTA.add("monday");
+        arrTuVung = new ArrayList<>();
+//        arrTuVung.add(new TuVungXepchu("  ","  "));
+//        arrTuVung.add(new TuVungXepchu("Bakery","Bánh mì"));
+//        arrTuVung.add(new TuVungXepchu("Country","Đất nước"));
+//        arrTuVung.add(new TuVungXepchu("Friendship","Tình bạn"));
+//        arrTuVung.add(new TuVungXepchu("Solution","Giải pháp"));
 
-        init();
+
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("TuVung")
+//                .whereLessThan("IDNhomTu","01")
+                    .whereEqualTo("IDNhomTu","02")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<DocumentSnapshot> snapshotslist = queryDocumentSnapshots.getDocuments();
+                        for(DocumentSnapshot snapshot:snapshotslist){
+                            if (snapshot.getString("TuVung").length()>0 && snapshot.getString("NghiaViet").length()>0){
+                                    arrTuVung.add(new TuVungXepchu(snapshot.getString("TuVung").toString(),snapshot.getString("NghiaViet").toString()));
+                            }
+    //                            System.out.println(snapshot.getString("TuVung").length() + "  |  " + snapshot.getString("NghiaViet").length());
+                        }
+                            init();
+                    }
+                });
+
+
+
         CardView cvBack = findViewById(R.id.cvback);
         cvBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,8 +93,9 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
 
         cvGoiY = findViewById(R.id.cvtip);
 
-        tuTV = arrTV.get(viTriTu);
-        tuTA = arrTA.get(viTriTu);
+        tuTV = arrTuVung.get(viTriTu).getNghia();
+//        tuTA = arrTA.get(viTriTu);
+        tuTA = arrTuVung.get(viTriTu).getTuvung();
         tuTV = tuTV.substring(0, 1).toUpperCase() + tuTV.substring(1);
         txtTuTV.setText(tuTV);
 
@@ -103,7 +125,10 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
         arrXaoGoiY = new ArrayList<>();
 
         arrXaoGoiY.addAll(arrDung);
-        xaoTronChu(arrXaoGoiY);
+
+        arrCheckTuGoiY = new ArrayList<>();
+        arrCheckTuGoiY.addAll(arrDung);
+        XaoTronChu(arrXaoGoiY);
         cvGoiY.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,9 +144,13 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
                 if (sotudagoiy==arrGoiY.size()-1){
                     cvGoiY.setEnabled(false);
                 }
-                for (int i = 0;i<arrDung.size();i++){
-                    if (arrXaoGoiY.get(sotudagoiy).equals(arrDung.get(i))){
+                for (int i = 0;i<arrCheckTuGoiY.size();i++){
+                    if (arrXaoGoiY.get(sotudagoiy).equals(arrCheckTuGoiY.get(i))){
                         vitrigoiy = i;
+                        arrCheckTuGoiY.set(i, "*");
+                        i=arrCheckTuGoiY.size();
+//                        for (String s: arrCheckTuGoiY)
+//                            System.out.println(s);
                     }
                 }
                 arrGoiY.set(vitrigoiy,arrDung.get(vitrigoiy));
@@ -136,7 +165,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
 
 
         arrChu.addAll(arrDung);
-        xaoTronChu(arrChu);
+        XaoTronChu(arrChu);
 
 
         //Làm mới rcv
@@ -175,7 +204,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
                         }
                     }
                     if(check==arrDung.size()){
-                        if (viTriTu == arrTA.size()-1){
+                        if (viTriTu == arrTuVung.size()-1){
 //                Toast.makeText(GameXepChu.this,"hoàn thành",Toast.LENGTH_SHORT).show();
                             startSound(R.raw.traloidung);
                             showCustomDialog(true);
@@ -201,7 +230,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
                         startSound(R.raw.traloisai);
                         arrChu.removeAll(arrChu);
                         arrChu.addAll(arrDung);
-                        xaoTronChu(arrChu);
+                        XaoTronChu(arrChu);
                         Lammoircv();
                     }
                 }
@@ -233,7 +262,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
         arrChu.removeAll(arrChu);
         arrChu.addAll(arrDung);
         setGridlayout();
-        xaoTronChu(arrChu);
+        XaoTronChu(arrChu);
         rcvChu.setAdapter(chuAdapter);
         rcvAnswer.setAdapter(dapAnAdapter);
     }
@@ -242,13 +271,24 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     public void onItemClickChu(String tukhoa) {
     }
 
-    private ArrayList<String> xaoTronChu(ArrayList<String> ar) {
+    private ArrayList<String> XaoTronChu(ArrayList<String> ar) {
+        ArrayList<String> arrCheck = new ArrayList<>();
+        arrCheck.addAll(ar);
         Random rnd = new Random();
         for (int i = ar.size() - 1; i > 0; i--) {
             int index = rnd.nextInt(i + 1);
             String a = ar.get(index);
             ar.set(index,ar.get(i));
             ar.set(i,a);
+        }
+        int demTrung = 0;
+        for (int i=0;i<ar.size();i++){
+            if (arrCheck.get(i).equals(ar.get(i))){
+                demTrung++;
+            }
+        }
+        if (demTrung>(arrCheck.size()/2)){
+            return XaoTronChu(ar);
         }
         return ar;
     }
@@ -275,11 +315,13 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
             btnnext.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (viTriTu < arrTA.size()){
+                    if (viTriTu < arrTuVung.size()){
                         viTriTu++;
-                        txtTuTV.setText(arrTV.get(viTriTu));
+                        tuTV = arrTuVung.get(viTriTu).getNghia();
+                        tuTV = tuTV.substring(0, 1).toUpperCase() + tuTV.substring(1);
+                        txtTuTV.setText(tuTV);
                         arrDung.removeAll(arrDung);
-                        TachChu(arrTA.get(viTriTu),arrDung);
+                        TachChu(arrTuVung.get(viTriTu).getTuvung(),arrDung);
                         Lammoircv();
                         refreshGoiY();
                         dialog.dismiss();
@@ -345,7 +387,9 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
         }
         arrXaoGoiY.removeAll(arrXaoGoiY);
         arrXaoGoiY.addAll(arrDung);
-        xaoTronChu(arrXaoGoiY);
+        XaoTronChu(arrXaoGoiY);
+        arrCheckTuGoiY.removeAll(arrCheckTuGoiY);
+        arrCheckTuGoiY.addAll(arrDung);
     }
 }
 
