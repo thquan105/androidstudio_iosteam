@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -25,6 +26,8 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     ImageView btMenu;
     RelativeLayout contentView;
 
+    TextView bt_cate_game_1, bt_cate_game_2, bt_translation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +40,46 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         btMenu = findViewById(R.id.btn_menu);
         contentView = findViewById(R.id.content);
 
+        bt_cate_game_1 = findViewById(R.id.btn_Cate_Game_1);
+        bt_cate_game_2 = findViewById(R.id.btn_Cate_Game_2);
+        bt_translation = findViewById(R.id.btn_translation);
+
+        bt_cate_game_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCategaryGame1();
+            }
+        });
+        bt_cate_game_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCategaryGame2();
+            }
+        });
+        bt_translation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openTraslation();
+            }
+        });
+
         navigationDrawer();
 
+    }
 
+    private void openTraslation() {
+        Intent intent = new Intent(HomeActivity.this, TranslationActivity.class);
+        startActivity(intent);
+    }
 
+    private void openCategaryGame2() {
+        Intent intent = new Intent(HomeActivity.this, Game2Activity.class);
+        startActivity(intent);
+    }
 
+    private void openCategaryGame1() {
+        Intent intent = new Intent(HomeActivity.this, Game1Activity.class);
+        startActivity(intent);
     }
 
     private void navigationDrawer(){
