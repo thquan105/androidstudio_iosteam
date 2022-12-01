@@ -6,16 +6,21 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -24,6 +29,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
@@ -31,7 +37,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     private RecyclerView rcvChu,rcvAnswer;
     private ArrayList<String> arrChu, arrAnswer,arrDung, arrGoiY, arrXaoGoiY,arrCheckTuGoiY;
     private TuKhoaAdapter chuAdapter,dapAnAdapter;
-    private CardView cvRefresh, cvGoiY;
+    private CardView cvRefresh, cvGoiY, cvSpeak;
     private Dialog dialog;
     private String tuTA,tuTV;
     private int viTriTu = 0;
@@ -39,6 +45,9 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     private TextView txtTuTV,txtGoiY;
     private MediaPlayer clicksound;
     private ArrayList<TuVungXepchu> arrTuVung;
+    private ProgressDialog progressDialog;
+    private TextToSpeech textToSpeech;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,22 +61,31 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
 //        arrTuVung.add(new TuVungXepchu("Solution","Giải pháp"));
 
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("TuVung")
-//                .whereLessThan("IDNhomTu","01")
-                    .whereEqualTo("IDNhomTu","02")
+//                    .whereEqualTo("IDNhomTu","02")
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         List<DocumentSnapshot> snapshotslist = queryDocumentSnapshots.getDocuments();
                         for(DocumentSnapshot snapshot:snapshotslist){
+                            String tuvungthem = snapshot.getString("TuVung").replaceAll(" ","");
+                            String nghiaTVthem = snapshot.getString("NghiaViet");
                             if (snapshot.getString("TuVung").length()>0 && snapshot.getString("NghiaViet").length()>0){
-                                    arrTuVung.add(new TuVungXepchu(snapshot.getString("TuVung").toString(),snapshot.getString("NghiaViet").toString()));
+                                    arrTuVung.add(new TuVungXepchu(tuvungthem,nghiaTVthem));
                             }
     //                            System.out.println(snapshot.getString("TuVung").length() + "  |  " + snapshot.getString("NghiaViet").length());
                         }
-                            init();
+                        if (progressDialog.isShowing()){
+                            progressDialog.dismiss();
+                        }
+                            Khoitao();
                     }
                 });
 
@@ -80,9 +98,20 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
                 finish();
             }
         });
+
+
+        cvSpeak = findViewById(R.id.cvSpeak);
+        cvSpeak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Speak();
+            }
+        });
     }
 
-    private void init(){
+
+    //KHỞI TẠO
+    private void Khoitao(){
         rcvChu = findViewById(R.id.lvtukhoa);
         rcvChu.setNestedScrollingEnabled(false);
         rcvAnswer = findViewById(R.id.rcvdapan);
@@ -90,11 +119,9 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
         cvRefresh = findViewById(R.id.cvrefresh);
         txtGoiY = findViewById(R.id.txtGoiy);
         txtGoiY.setVisibility(View.GONE);
-
         cvGoiY = findViewById(R.id.cvtip);
 
         tuTV = arrTuVung.get(viTriTu).getNghia();
-//        tuTA = arrTA.get(viTriTu);
         tuTA = arrTuVung.get(viTriTu).getTuvung();
         tuTV = tuTV.substring(0, 1).toUpperCase() + tuTV.substring(1);
         txtTuTV.setText(tuTV);
@@ -162,6 +189,26 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
 
             }
         });
+
+
+        //phát âm
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if (i== TextToSpeech.SUCCESS){
+                    int result = textToSpeech.setLanguage(Locale.ENGLISH);
+                    if (result == TextToSpeech.LANG_MISSING_DATA
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Toast.makeText(GameXepChu.this,"Language not supported",Toast.LENGTH_SHORT).show();
+                    } else {
+//                        mButtonSpeak.setEnabled(true);
+                    }
+                }else {
+                    Log.e("Speak", "Initialization failed");
+                }
+            }
+        });
+
 
 
         arrChu.addAll(arrDung);
@@ -254,6 +301,24 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
 
         rcvAnswer.setAdapter(dapAnAdapter);
         rcvChu.setAdapter(chuAdapter);
+    }
+
+    //PHÁT ÂM TỪ VỰNG
+    private void Speak(){
+        String text = arrTuVung.get(viTriTu).getTuvung();
+        textToSpeech.setPitch(1);
+//        textToSpeech.setSpeechRate(1);
+
+        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
+    @Override
+    protected void onDestroy() {
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+
+        super.onDestroy();
     }
 
     private void Lammoircv() {
