@@ -62,7 +62,7 @@ public class SignInActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
-    FirebaseDatabase database;
+//    FirebaseDatabase database;
 
     String userID;
     @Override
@@ -99,7 +99,7 @@ public class SignInActivity extends AppCompatActivity {
         cbRemenber.setChecked(sharedPreferences.getBoolean("checked",false));
 
 
-        database = FirebaseDatabase.getInstance("https://learnenglishvocab-6ef61-default-rtdb.firebaseio.com/");
+//        database = FirebaseDatabase.getInstance("https://learnenglishvocab-6ef61-default-rtdb.firebaseio.com/");
         tvDangKy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -240,16 +240,30 @@ public class SignInActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Toast.makeText(SignInActivity.this,"Đăng nhập thành công!",Toast.LENGTH_SHORT).show();
+                            userID = mAuth.getCurrentUser().getUid();
+                            String email = mAuth.getCurrentUser().getEmail();
 
-                            FirebaseUser user = mAuth.getCurrentUser();
+                            DocumentReference documentReference = mStore.collection("users").document(userID);
+                            Map<String, Object> user = new HashMap<>();
+                            user.put("Email", email);
+                            user.put("AnhDaiDien", "link image");
+                            user.put("Diem", 0);
+                            user.put("HoTen", "Full name");
+                            user.put("NgaySinh", "January 2, 2002 at 12:00:00 AM UTC+7");
+                            documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(SignInActivity.this, "Tạo tài khoản thành công", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                             Intent i = new Intent(SignInActivity.this,HomeActivity.class);
                             startActivity(i);
                             finish();
 
                         } else {
 
-                            Toast.makeText(SignInActivity.this,"Login failed",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignInActivity.this,"Đăng nhập thất bại",Toast.LENGTH_SHORT).show();
                         }
 
                     }
