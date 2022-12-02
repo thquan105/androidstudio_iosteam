@@ -1,5 +1,7 @@
 package com.example.learnenglishvocab;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -7,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,13 +23,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     //Variables
     static final float END_SCALE = 1f;
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
-    ImageView btMenu;
-    RelativeLayout contentView;
+    private ImageView btMenu, btSettings;
+    private RelativeLayout contentView;
 
-    TextView bt_cate_game_1, bt_cate_game_2, bt_translation;
+    private TextView bt_cate_game_1, bt_cate_game_2, bt_translation;
 
 
     @Override
@@ -38,6 +41,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
         btMenu = findViewById(R.id.btn_menu);
+        btSettings = (ImageView) findViewById(R.id.btn_settings);
         contentView = findViewById(R.id.content);
 
         bt_cate_game_1 = findViewById(R.id.btn_Cate_Game_1);
@@ -62,9 +66,20 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 openTraslation();
             }
         });
+        btSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                opensettings();
+            }
+        });
 
         navigationDrawer();
 
+    }
+
+    private void opensettings() {
+        Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+        startActivity(intent);
     }
 
     private void openTraslation() {
