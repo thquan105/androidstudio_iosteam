@@ -7,6 +7,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,8 +28,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     FirebaseAuth mAuth;
     private ImageView btMenu, btSettings;
     private RelativeLayout contentView;
-
+    private SharedPreferences sharedPreferences;
     private TextView bt_cate_game_1, bt_cate_game_2, bt_translation;
+    private BackgroundMediaPlayer backgroundMediaPlayer;
+    private int i = 1;
 
 
     @Override
@@ -71,9 +74,17 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
                 opensettings();
             }
         });
-
+        runMediaPlayer();
         navigationDrawer();
 
+    }
+
+    private void runMediaPlayer() {
+        sharedPreferences = getSharedPreferences("dataSettings", MODE_PRIVATE);
+        if (sharedPreferences.getBoolean("musicCheck", false) == true && i==1) {
+            backgroundMediaPlayer.SoundPlayer(this,R.raw.bg_music);
+            i++;
+        }
     }
 
     private void opensettings() {
