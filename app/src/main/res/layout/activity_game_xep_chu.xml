@@ -120,7 +120,7 @@
             android:layout_marginRight="30dp"
             android:layout_alignParentRight="true"
             app:cardElevation="0dp"
-            android:backgroundTint="#75FFFFFF"
+            android:backgroundTint="#94FFFFFF"
             >
 
             <ImageView
