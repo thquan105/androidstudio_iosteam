@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class HomeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
@@ -24,13 +25,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     ImageView btMenu;
     RelativeLayout contentView;
-
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+        mAuth = FirebaseAuth.getInstance();
         //Hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
@@ -129,7 +130,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.logout:
             {
-
+                mAuth.signOut();
+                startActivity( new Intent(HomeActivity.this, HeyActivity.class));
+                finish();
+                break;
             }
         }
         return false;
