@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "64130956057-nnehoc67fdv4q2f02n9hgijhijo1mt0b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.learnenglishvocab",
+            "certificate_hash": "2ef2e080fdb7fda3bd06dbdc7edc78536453034e"
+          }
+        },
+        {
           "client_id": "64130956057-pfh3fi0lt6pcd8ujqnpptkbarlsg3hji.apps.googleusercontent.com",
           "client_type": 3
         }
