@@ -2,13 +2,14 @@ package com.example.learnenglishvocab;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.learnenglishvocab.Adapter.CategoryAdapter;
 import com.example.learnenglishvocab.Models.Category;
@@ -17,7 +18,6 @@ import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -30,7 +30,8 @@ public class Game1Activity extends AppCompatActivity {
     FirebaseFirestore mydb;
     ProgressDialog progressDialog;
     Random random = new Random();
-    boolean a = random.nextBoolean();
+    int a = 1;
+    ImageView bt_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,13 +42,17 @@ public class Game1Activity extends AppCompatActivity {
         progressDialog.setMessage("Fetching Data...");
         progressDialog.show();
 
+        bt_back = (ImageView) findViewById(R.id.btn_back);
+        bt_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         recyclerView = findViewById(R.id.rcv_game1);
         recyclerView.setHasFixedSize(true);
-        if (a) {
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        } else {
-            recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        }
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         categoryArrayList = new ArrayList<Category>();
         EventChangeListener();
 
