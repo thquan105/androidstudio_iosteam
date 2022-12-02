@@ -92,7 +92,7 @@ public class SignUpctivity extends AppCompatActivity {
                                 user.put("AnhDaiDien", "https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/user_default.png?alt=media&token=98c08dbc-c1b6-4d86-a74b-f2944c2cce2a");
                                 user.put("Diem", 0);
                                 user.put("HoTen", "Full name");
-                                user.put("NgaySinh", "January 2, 2002 at 12:00:00 AM UTC+7");
+                                user.put("NgaySinh", "01/01/2002");
 
                                 documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
