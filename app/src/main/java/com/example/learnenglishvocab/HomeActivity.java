@@ -1,5 +1,6 @@
 package com.example.learnenglishvocab;
 
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
@@ -20,12 +22,14 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
 
     //Variables
     static final float END_SCALE = 1f;
-    DrawerLayout drawerLayout;
-    NavigationView navigationView;
-
-    ImageView btMenu;
-    RelativeLayout contentView;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     FirebaseAuth mAuth;
+    private ImageView btMenu, btSettings;
+    private RelativeLayout contentView;
+
+    private TextView bt_cate_game_1, bt_cate_game_2, bt_translation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +40,60 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
         btMenu = findViewById(R.id.btn_menu);
+        btSettings = (ImageView) findViewById(R.id.btn_settings);
         contentView = findViewById(R.id.content);
+
+        bt_cate_game_1 = findViewById(R.id.btn_Cate_Game_1);
+        bt_cate_game_2 = findViewById(R.id.btn_Cate_Game_2);
+        bt_translation = findViewById(R.id.btn_translation);
+
+        bt_cate_game_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCategaryGame1();
+            }
+        });
+        bt_cate_game_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openCategaryGame2();
+            }
+        });
+        bt_translation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openTraslation();
+            }
+        });
+        btSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                opensettings();
+            }
+        });
 
         navigationDrawer();
 
+    }
 
+    private void opensettings() {
+        Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+        startActivity(intent);
+    }
 
+    private void openTraslation() {
+        Intent intent = new Intent(HomeActivity.this, TranslationActivity.class);
+        startActivity(intent);
+    }
 
+    private void openCategaryGame2() {
+        Intent intent = new Intent(HomeActivity.this, Game2Activity.class);
+        startActivity(intent);
+    }
+
+    private void openCategaryGame1() {
+        Intent intent = new Intent(HomeActivity.this, Game1Activity.class);
+        startActivity(intent);
     }
 
     private void navigationDrawer(){

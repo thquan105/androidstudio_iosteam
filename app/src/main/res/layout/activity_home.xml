@@ -23,17 +23,18 @@
     <RelativeLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:background="@drawable/backgroundmain">
         <androidx.cardview.widget.CardView
             android:id="@+id/bar"
             android:layout_width="match_parent"
-            app:cardElevation="10dp"
-            android:layout_height="?attr/actionBarSize">
+            android:layout_height="?attr/actionBarSize"
+            app:cardBackgroundColor="@android:color/transparent">
+
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:padding="8dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:padding="8dp">
 
                 <ImageView
                     android:id="@+id/btn_menu"
@@ -43,28 +44,15 @@
                     android:padding="5dp"
                     android:src="@drawable/ic_menu" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5sp"
-                    android:fontFamily="@font/misans"
-                    android:layout_centerHorizontal="true"
-                    android:text="HELLO"
-                    android:textStyle="bold"
-                    android:textColor="#000000"
-                    android:textSize="33sp" />
 
                 <ImageView
+                    android:id="@+id/btn_settings"
                     android:layout_width="45dp"
                     android:layout_height="45dp"
                     android:layout_alignParentEnd="true"
                     android:padding="5dp"
                     android:src="@drawable/ic_settings" />
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_alignParentBottom="true"
-                    android:layout_height="1dp"
-                    android:background="@color/white"/>
+
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
 
@@ -72,19 +60,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/bar"
-            android:layout_marginTop="30dp"
+            android:paddingTop="30dp"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/btn_translation"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="160dp"
                 android:layout_margin="20dp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/boder_button"
-                android:backgroundTint="#A2D188"
+                android:background="@drawable/btn_cam"
                 android:fontFamily="@font/roboto"
                 android:gravity="center"
-                android:padding="50dp"
                 android:scaleType="fitCenter"
                 android:text="TRA CỨU"
                 android:textColor="@color/white"
@@ -92,15 +79,14 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/btn_Cate_Game_1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="160dp"
                 android:layout_margin="20dp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/boder_button"
-                android:backgroundTint="#D9BB97"
+                android:background="@drawable/btn_xanh"
                 android:fontFamily="@font/roboto"
                 android:gravity="center"
-                android:padding="50dp"
                 android:scaleType="fitCenter"
                 android:text="TRÒ CHƠI 1"
                 android:textColor="@color/white"
@@ -108,15 +94,14 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/btn_Cate_Game_2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="160dp"
                 android:layout_margin="20dp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/boder_button"
-                android:backgroundTint="#A0DAEA"
+                android:background="@drawable/btn_tim"
                 android:fontFamily="@font/roboto"
                 android:gravity="center"
-                android:padding="50dp"
                 android:scaleType="fitCenter"
                 android:text="TRÒ CHƠI 2"
                 android:textColor="@color/white"
