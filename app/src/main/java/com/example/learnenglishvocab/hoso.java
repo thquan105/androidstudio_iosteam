@@ -29,7 +29,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.core.Tag;
@@ -165,7 +169,42 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         btnluuchinhsuatk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(hoso.this, "đã lưu thay đổi", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(hoso.this, "đã lưu thay đổi", Toast.LENGTH_SHORT).show();
+
+                FirebaseUser user;
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                final String email = user.getEmail();
+                String oldpass = edtmatkhaucu.getText().toString();
+
+                final String newPass  = edtmatkhaumoi.getText().toString();
+                if(newPass.equals(edtxacnhanmatkhau.getText().toString())){
+                    AuthCredential credential = EmailAuthProvider.getCredential(email,oldpass);
+
+                    user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                user.updatePassword(newPass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(!task.isSuccessful()){
+                                            Toast.makeText(hoso.this, "Cập nhật mật khẩu thất bại", Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            Toast.makeText(hoso.this, "Cập nhật mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }else {
+                                edtmatkhaucu.setError("Mật khẩu không đúng!");
+                                Toast.makeText(hoso.this, task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }else{
+                    edtxacnhanmatkhau.setError("Mật khẩu xác nhập không khớp!");
+                }
+
+
             }
         });
         dialog.show();
