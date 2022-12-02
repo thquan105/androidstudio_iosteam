@@ -152,7 +152,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
         {
             case R.id.profile:
             {
-                Toast.makeText(HomeActivity.this,"login",Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomeActivity.this, hoso.class));
                 break;
             }
             case R.id.notification:
