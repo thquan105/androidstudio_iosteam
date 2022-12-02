@@ -39,11 +39,6 @@
                 android:layout_alignParentEnd="true"
                 android:padding="5dp"
                 android:src="@drawable/ic_question" />
-            <View
-                android:layout_width="match_parent"
-                android:layout_alignParentBottom="true"
-                android:layout_height="1dp"
-                android:background="@color/white"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
     <androidx.recyclerview.widget.RecyclerView
