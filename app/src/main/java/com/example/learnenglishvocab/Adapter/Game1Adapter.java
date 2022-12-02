@@ -34,8 +34,7 @@ public class Game1Adapter extends RecyclerView.Adapter<Game1Adapter.Game1ViewHol
         if (game1 != null){
             return;
         }
-        holder.imgGame.setImageResource(game1.getImg());
-        holder.tvNghiaTuVung.setText(game1.getNghiatuvung());
+
     }
 
     @Override

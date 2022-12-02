@@ -37,6 +37,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     private GridLayoutManager gridLayoutManagerchu,gridLayoutManagerAnswer;
     private TextView txtTuTV;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
