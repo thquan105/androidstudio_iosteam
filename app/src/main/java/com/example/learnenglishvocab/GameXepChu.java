@@ -48,6 +48,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     private ProgressDialog progressDialog;
     private TextToSpeech textToSpeech;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

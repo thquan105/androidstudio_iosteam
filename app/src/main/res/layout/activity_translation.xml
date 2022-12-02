@@ -39,18 +39,19 @@
                 android:layout_alignParentEnd="true"
                 android:padding="5dp"
                 android:src="@drawable/ic_question" />
+
             <View
                 android:layout_width="match_parent"
-                android:layout_alignParentBottom="true"
                 android:layout_height="1dp"
-                android:background="@color/white"/>
+                android:layout_alignParentBottom="true"
+                android:background="@color/white" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <ScrollView
-        android:layout_above="@id/optionsL"
+
         android:layout_width="match_parent"
-        android:layout_height="673dp"
+        android:layout_height="440dp"
         android:layout_below="@+id/bar"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
@@ -58,69 +59,95 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="2dp"
         android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp">
+        android:layout_marginBottom="233dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <EditText
                 android:id="@+id/sourceLanguageEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Enter English"
-                android:minHeight="100dp"
                 android:gravity="center"
-                android:textSize="18sp"/>
+                android:hint="Nhập"
+                android:minHeight="100dp"
+                android:textSize="18sp" />
+
             <TextView
                 android:id="@+id/destinationLanguageTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:textSize="18sp"/>
+                android:gravity="center"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
+
     </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/optionsL"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btnXoa"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_above="@+id/translateBtn">
+        android:layout_above="@+id/btnHoanDoi"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="320dp"
+        android:layout_marginBottom="32dp"
+        android:text="Xóa" />
 
-
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="English"
-            app:cornerRadius="10dp"
-            android:layout_weight="1"
-            android:id="@+id/sourceLanguageChooseBtn"/>
-
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_baseline_arrow_forward_24"/>
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="wrap_content"
-            android:id="@+id/destinationLanguageChooseBtn"
-            android:text="Urdu"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
+    <ImageButton
+        android:id="@+id/btnHoanDoi"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_above="@+id/translateBtn"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="173dp"
+        android:layout_marginEnd="172dp"
+        android:layout_marginBottom="62dp"
+        android:background="@color/cardview_light_background"
+        android:padding="5dp"
+        android:src="@drawable/ic_baseline_change_circle_24" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/translateBtn"
-        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:icon="@drawable/ic_baseline_translate_24"
-        android:text="Translate"/>
+        android:layout_alignParentBottom="true"
+        android:text="Translate"
+        app:icon="@drawable/ic_baseline_translate_24" />
+
+    <TextView
+        android:id="@+id/tvNgonNgu2"
+        android:layout_width="128dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/translateBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="62dp"
+        android:background="#000000"
+        android:gravity="center"
+        android:text="Việt Nam"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvNgonNgu1"
+        android:layout_width="128dp"
+        android:layout_height="40dp"
+        android:layout_above="@+id/translateBtn"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="23dp"
+        android:layout_marginBottom="62dp"
+        android:background="#000000"
+        android:gravity="center"
+        android:text="English"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
 
 
 </RelativeLayout>

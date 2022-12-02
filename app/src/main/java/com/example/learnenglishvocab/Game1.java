@@ -1,28 +1,30 @@
 package com.example.learnenglishvocab;
 
 public class Game1 {
-    private int img;
+    private String img;
     private String tuvung;
     private String Nghiatuvung;
     private String loai;
 
-    public Game1(int img, String tuvung, String nghiatuvung, String loai) {
+    public Game1(String img, String tuvung, String nghiatuvung, String loai) {
         this.img = img;
         this.tuvung = tuvung;
         this.Nghiatuvung = nghiatuvung;
         this.loai = loai;
     }
 
-    public Game1(int img, String Nghiatuvung) {
-        this.img = img;
+    public Game1(String tuvung, String Nghiatuvung,String img) {
+        this.tuvung = tuvung;
         this.Nghiatuvung = Nghiatuvung;
+        this.img = img;
+
     }
 
-    public int getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(int img) {
+    public void setImg(String img) {
         this.img = img;
     }
 
