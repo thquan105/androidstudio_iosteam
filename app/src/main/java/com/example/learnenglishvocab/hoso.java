@@ -1,6 +1,10 @@
 package com.example.learnenglishvocab;
 
+
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
@@ -9,6 +13,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,17 +24,90 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.core.Tag;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 
+public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+    private TextView tvten,tvdiem,tvngaysinh,tvemail,txt_ten;
+    private ImageView imgAvatar;
+    FirebaseAuth fAuth;
+    FirebaseFirestore fStore;
+    String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hoso);
-        //nut back
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        imgAvatar=this.findViewById(R.id.img_avt);
+        tvdiem=this.findViewById(R.id.textView_Diem);
+        tvngaysinh=this.findViewById(R.id.textView_nsinh);
+        tvten=this.findViewById(R.id.textView_Ten);
+        tvemail=this.findViewById(R.id.textView_Email);
+        txt_ten=findViewById(R.id.tv_tenUser);
+
+        fAuth=FirebaseAuth.getInstance();
+
+//        userId=fAuth.getCurrentUser().getUid();
+        userId="0rxibM74ucXdVGOj0YwF9PKcmoE3";
+
+        fStore.getInstance()
+                .collection("users")
+                .document(userId)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        tvten.setText(""+documentSnapshot.getString("HoTen"));
+                        txt_ten.setText(""+documentSnapshot.getString("HoTen"));
+                        tvdiem.setText(""+documentSnapshot.getLong("Diem"));
+                        tvemail.setText(documentSnapshot.getString("Email"));
+                        tvngaysinh.setText(documentSnapshot.getString("NgaySinh"));
+                        //Set hinhanh
+                        Glide
+                                .with(hoso.this)
+                                .load(documentSnapshot.getString("AnhDaiDien"))
+                                .apply(new RequestOptions()
+                                        .placeholder(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark)
+                                        .fitCenter()
+                                        .error(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark_normal))
+                                .into(imgAvatar);
+                    }
+                });
+
+
+
+//        DocumentReference documentReference=fStore.collection("users").document(userId);
+//        documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
+
+//                //imgAvatar.setImageResource(Integer.parseInt(documentSnapshot.getString("AnhDaiDien")));
+//                System.out.println(error.toString());
+//            }
+//        });
+
+
+
     }
+
+
+
+
+
+
+
     public void showPopup(View v){
         PopupMenu popup=new PopupMenu(this,v);
         popup.setOnMenuItemClickListener(this);
