@@ -59,8 +59,7 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
 
         fAuth=FirebaseAuth.getInstance();
 
-//        userId=fAuth.getCurrentUser().getUid();
-        userId="0rxibM74ucXdVGOj0YwF9PKcmoE3";
+        userId = fAuth.getCurrentUser().getUid();
 
         fStore.getInstance()
                 .collection("users")
