@@ -36,7 +36,7 @@ public class TranslationActivity extends AppCompatActivity {
     private EditText sourceLanguageEt;
     private TextView destinationLanguageTv, NgonNgu1, NgonNgu2;
     private Button Xoa;
-    private MaterialButton  translateBtn;
+    private Button  translateBtn;
     private ImageButton btnChange;
     private TranslatorOptions translatorOptions;
     private Translator translator;
@@ -62,7 +62,7 @@ public class TranslationActivity extends AppCompatActivity {
         NgonNgu2 = findViewById(R.id.tvNgonNgu2);
         Xoa = findViewById(R.id.btnXoa);
 
-        translateBtn = findViewById(R.id.translateBtn);
+        translateBtn = (Button) findViewById(R.id.translateBtn);
         btnChange = findViewById(R.id.btnHoanDoi);
         processDialog = new ProgressDialog(this);
         processDialog.setTitle("Please wait");
