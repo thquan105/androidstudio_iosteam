@@ -244,7 +244,7 @@ public class SignInActivity extends AppCompatActivity {
 
                             DocumentReference documentReference = mStore.collection("users").document(userID);
                             Map<String, Object> user = new HashMap<>();
-                            user.put("Email", email);
+                            user.put("SDT", "");
                             user.put("AnhDaiDien", "https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/user_default.png?alt=media&token=98c08dbc-c1b6-4d86-a74b-f2944c2cce2a");
                             user.put("Diem", 0);
                             user.put("HoTen", "Full name");
