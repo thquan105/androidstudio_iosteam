@@ -10,12 +10,14 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,17 +30,19 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class GameChonHinh extends AppCompatActivity implements InterfaceClickCard{
 
     private RecyclerView rcvGame1;
-    private Button btQuayLai, btTiepTheo,btKiemtra;
     private TextView tvTuvung;
+    private ImageButton btnPhatAm;
     private ArrayList<Game1> arrFirebase, arrGame, arrTuVung;
     private Dialog dialog;
     private Game1Adapter adapter;
     private int viTriTu = 0;
+    private TextToSpeech textToSpeech;
 
 
     @Override
@@ -46,12 +50,9 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gamechonhinh);
 
-        btQuayLai = findViewById(R.id.btnQuayLai);
-        btTiepTheo = findViewById(R.id.btnTiepTheo);
-        btKiemtra = findViewById(R.id.btnKiemtra);
         tvTuvung = findViewById(R.id.txtTuvung);
         rcvGame1 = findViewById(R.id.rcv_game1);
-
+        btnPhatAm = findViewById(R.id.imgBtnPhatAm);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         rcvGame1.setLayoutManager(gridLayoutManager);
 
@@ -59,11 +60,8 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
         arrFirebase = new ArrayList<>();
         arrGame = new ArrayList<>();
         arrTuVung = new ArrayList<>();
-//        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
-//        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
-//        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
-//        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
-//
+
+
 
        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("TuVung")
@@ -80,14 +78,10 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
                             if (snapshot.getString("TuVung").length()>0 && snapshot.getString("NghiaViet").length()>0 && snapshot.getString("HinhAnh").length()>0){
 
                                 arrFirebase.add(new Game1(tuvung,Nghia,HinhAnh));
-//                                if(arrFirebase.size()==0)
-//                                    Toast.makeText(GameChonHinh.this, "Thuaaaa", Toast.LENGTH_SHORT).show();
-//                                else
-//                                    Toast.makeText(GameChonHinh.this, "Ngon"+ arrFirebase.size(), Toast.LENGTH_SHORT).show();
                             }
                         }
 
-                        arrTuVung = arrFirebase;
+                        arrTuVung.addAll(arrFirebase);
                         arrGame = thuchien(arrGame);
 
                         adapter = new Game1Adapter(arrGame, GameChonHinh.this);
@@ -95,14 +89,59 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
                         adapter = new Game1Adapter(arrGame, new InterfaceClickCard() {
                             @Override
                             public void onItemClickCard(Game1 game1) {
-                                Toast.makeText(GameChonHinh.this, game1.getNghiatuvung(), Toast.LENGTH_SHORT).show();
-                                showCustomDialog(true);
+
+                                if(game1.getTuvung().equals(tvTuvung.getText().toString())){
+                                    if(viTriTu == arrFirebase.size()-1){
+                                        showCustomDialog(true);
+                                        TextView txtChucmung = dialog.findViewById(R.id.txtThongbaodialog);
+                                        txtChucmung.setText("Hoàn thành");
+                                        Button btn = dialog.findViewById(R.id.btnDlgG2Dung);
+                                        btn.setText("OK");
+                                        btn.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                finish();
+                                            }
+                                        });
+                                    }
+                                   else
+                                        showCustomDialog(true);
+                                }
+                                else{
+                                    showCustomDialog(false);
+
+                                }
+
                             }
                         });
                         rcvGame1.setAdapter(adapter);
                     }
                 });
+
+
+
+        textToSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if (i== TextToSpeech.SUCCESS){
+                    int result = textToSpeech.setLanguage(Locale.ENGLISH);
+                    if (result == TextToSpeech.LANG_MISSING_DATA
+                            || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                        Toast.makeText(GameChonHinh.this,"Language not supported",Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Log.e("Speak", "Initialization failed");
+                }
+            }
+        });
+        btnPhatAm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Speak();
+            }
+        });
     }
+
 
     //arrGame: list Đáp ÁN
     //arrFirebase: all 10 tu
@@ -138,7 +177,9 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
     private void Lammoircv() {
         arrGame.removeAll(arrGame);
         adapter.notifyDataSetChanged();
-
+        arrTuVung.removeAll(arrTuVung);
+        arrTuVung.addAll(arrFirebase);
+        rcvGame1.setAdapter(adapter);
     }
 
 
@@ -166,8 +207,9 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
                 public void onClick(View view) {
                     if (viTriTu < arrFirebase.size()){
                         viTriTu++;
-                        arrGame.removeAll(arrGame);
                         Lammoircv();
+                        arrGame =thuchien(arrGame);
+
                         dialog.dismiss();
                     }
                 }
@@ -189,13 +231,26 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
         dialog.show();
     }
 
-    private List<Game1> getGame1List() {
-        List<Game1> list = new ArrayList<>();
-        return list;
-    }
+
+
 
     @Override
     public void onItemClickCard(Game1 game1) {
 
+    }
+    private void Speak(){
+        String text = arrFirebase.get(viTriTu).getTuvung();
+        textToSpeech.setPitch(1);
+//        textToSpeech.setSpeechRate(1);
+
+        textToSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null);
+    }
+    @Override
+    protected void onDestroy() {
+        if (textToSpeech != null) {
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
     }
 }
