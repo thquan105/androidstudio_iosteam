@@ -6,15 +6,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -168,7 +173,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.notification:
             {
-
+                break;
             }
             case R.id.hengio:
             {
@@ -176,19 +181,45 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.share:
             {
-
+                break;
             }
             case R.id.rate:
             {
-
+                break;
             }
             case R.id.feedback:
             {
-
+                startActivity(new Intent(HomeActivity.this, FeedbackActivity.class));
+                break;
             }
             case R.id.about:
             {
+                final Dialog dialog=new Dialog(this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                dialog.setContentView(R.layout.dialog_about_us);
+                Window window=dialog.getWindow();
+                if(window==null){
+                    break;
+                }
+                window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+                window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+                WindowManager.LayoutParams windowAttributes=window.getAttributes();
+                windowAttributes.gravity=Gravity.CENTER;
+                window.setAttributes(windowAttributes);
+
+                if(Gravity.BOTTOM==Gravity.CENTER) {
+                    dialog.setCancelable(true);
+                }else{
+                    dialog.setCancelable(false);
+                }
+                ImageView bt_close = dialog.findViewById(R.id.iv_close);
+                bt_close.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {dialog.dismiss();}
+                });
+                dialog.show();
+                break;
             }
             case R.id.logout:
             {
