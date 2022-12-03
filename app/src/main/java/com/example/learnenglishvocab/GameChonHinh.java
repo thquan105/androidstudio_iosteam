@@ -39,7 +39,7 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
 
     private RecyclerView rcvGame1;
     private TextView tvTuvung;
-    private ImageButton btnPhatAm;
+    private ImageButton btnPhatAm, btnClose;
     private ArrayList<Game1> arrFirebase, arrGame, arrTuVung;
     private Dialog dialog;
     private Game1Adapter adapter;
@@ -56,6 +56,7 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
         tvTuvung = findViewById(R.id.txtTuvung);
         rcvGame1 = findViewById(R.id.rcv_game1);
         btnPhatAm = findViewById(R.id.imgBtnPhatAm);
+        btnClose = findViewById(R.id.btn_close_game1);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         rcvGame1.setLayoutManager(gridLayoutManager);
 
@@ -148,6 +149,13 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
             }
         });
 
+        btnClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         CardView cvGuildGame1 = findViewById(R.id.cvhdg2);
         cvGuildGame1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,6 +164,8 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
                 startActivity(intent1);
             }
         });
+
+
     }
 
 
