@@ -4,20 +4,11 @@ public class Game1 {
     private String img;
     private String tuvung;
     private String Nghiatuvung;
-    private String loai;
 
-    public Game1(String img, String tuvung, String nghiatuvung, String loai) {
+    public Game1( String tuvung, String nghiatuvung, String img) {
         this.img = img;
         this.tuvung = tuvung;
         this.Nghiatuvung = nghiatuvung;
-        this.loai = loai;
-    }
-
-    public Game1(String tuvung, String Nghiatuvung,String img) {
-        this.tuvung = tuvung;
-        this.Nghiatuvung = Nghiatuvung;
-        this.img = img;
-
     }
 
     public String getImg() {
@@ -40,15 +31,7 @@ public class Game1 {
         return Nghiatuvung;
     }
 
-    public void setNghiatuvung(String Nghiatuvung) {
-        Nghiatuvung = Nghiatuvung;
-    }
-
-    public String getLoai() {
-        return loai;
-    }
-
-    public void setLoai(String loai) {
-        this.loai = loai;
+    public void setNghiatuvung(String nghiatuvung) {
+        this.Nghiatuvung = nghiatuvung;
     }
 }
