@@ -20,7 +20,7 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_alignParentStart="true"
-                android:padding="5dp"
+                android:layout_marginStart="8dp"
                 android:src="@drawable/ic_back" />
 
             <TextView
@@ -32,48 +32,63 @@
                 android:text="Phiên dịch"
                 android:textColor="#000000"
                 android:textSize="33sp"/>
-
-            <ImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_alignParentEnd="true"
-                android:padding="5dp"
-                android:src="@drawable/ic_question" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@color/white" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <ScrollView
-
         android:layout_width="match_parent"
-        android:layout_height="440dp"
+        android:layout_height="match_parent"
         android:layout_below="@+id/bar"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="233dp">
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="220dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginHorizontal="10dp"
             android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvNgonNgu1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#2196F3"
+                android:gravity="center_vertical"
+                android:paddingStart="30dp"
+                android:text="Anh"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
             <EditText
                 android:id="@+id/sourceLanguageEt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="Nhập"
+                android:fontFamily="@font/roboto"
+                android:hint="Nhập văn bản"
                 android:minHeight="100dp"
-                android:textSize="18sp" />
+                android:textSize="30sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/black" />
+
+            <TextView
+                android:id="@+id/tvNgonNgu2"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#2196F3"
+                android:gravity="center_vertical"
+                android:paddingStart="30dp"
+                android:text="Việt"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/destinationLanguageTv"
@@ -81,8 +96,11 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/roboto"
                 android:gravity="center"
-                android:textSize="18sp" />
+                android:hint="Bản dịch"
+                android:minHeight="100dp"
+                android:textSize="30sp" />
 
         </LinearLayout>
 
@@ -91,63 +109,42 @@
 
     <Button
         android:id="@+id/btnXoa"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnHoanDoi"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="320dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
+        android:layout_above="@+id/translateBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="49dp"
+        android:layout_marginEnd="20dp"
+        android:backgroundTint="#FFA1A1"
         android:text="Xóa" />
 
-    <ImageButton
+    <Button
         android:id="@+id/btnHoanDoi"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="180dp"
+        android:layout_height="50dp"
         android:layout_above="@+id/translateBtn"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="173dp"
-        android:layout_marginEnd="172dp"
-        android:layout_marginBottom="62dp"
-        android:background="@color/cardview_light_background"
-        android:padding="5dp"
-        android:src="@drawable/ic_baseline_change_circle_24" />
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="217dp"
+        android:layout_marginBottom="49dp"
+        android:backgroundTint="#C4F890"
+        android:drawableLeft="@drawable/ic_baseline_change_circle_24"
+        android:elevation="5dp"
+        android:text="Đổi" />
 
     <Button
         android:id="@+id/translateBtn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="@font/roboto"
+        android:backgroundTint="#80CDFF"
+        android:paddingStart="10dp"
+        android:textSize="25dp"
         android:text="Translate"
-        app:icon="@drawable/ic_baseline_translate_24" />
-
-    <TextView
-        android:id="@+id/tvNgonNgu2"
-        android:layout_width="128dp"
-        android:layout_height="40dp"
-        android:layout_above="@+id/translateBtn"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="23dp"
-        android:layout_marginBottom="62dp"
-        android:background="#000000"
-        android:gravity="center"
-        android:text="Việt Nam"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tvNgonNgu1"
-        android:layout_width="128dp"
-        android:layout_height="40dp"
-        android:layout_above="@+id/translateBtn"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="23dp"
-        android:layout_marginBottom="62dp"
-        android:background="#000000"
-        android:gravity="center"
-        android:text="English"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp" />
+        android:drawableLeft="@drawable/ic_baseline_translate_24" />
 
 
 </RelativeLayout>

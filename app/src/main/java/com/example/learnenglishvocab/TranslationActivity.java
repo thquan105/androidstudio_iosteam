@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,12 +37,12 @@ public class TranslationActivity extends AppCompatActivity {
     private EditText sourceLanguageEt;
     private TextView destinationLanguageTv, NgonNgu1, NgonNgu2;
     private Button Xoa;
-    private Button  translateBtn;
-    private ImageButton btnChange;
+    private Button  translateBtn, btnChange;
     private TranslatorOptions translatorOptions;
     private Translator translator;
     private ProgressDialog processDialog;
     private ArrayList<ModelLanguage> languageArrayList;
+    private ImageView bt_back;
 
     private static final String TAG="MAIN_TAG";
     private String sourceLanguageCode ="en";
@@ -69,6 +70,14 @@ public class TranslationActivity extends AppCompatActivity {
         processDialog.setCanceledOnTouchOutside(false);
 
         loadAvailableLanguages();
+
+        bt_back = (ImageView) findViewById(R.id.btn_back);
+        bt_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 
 
