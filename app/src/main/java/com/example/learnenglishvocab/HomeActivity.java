@@ -181,6 +181,11 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.share:
             {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Hãy cùng trải nghiệm ứng dụng học tiếng Anh này.");
+                intent.putExtra(Intent.EXTRA_TEXT,"Tải App ngay tại: \n www.google.com");
+                startActivity(Intent.createChooser(intent,"Chia sẽ qua"));
                 break;
             }
             case R.id.rate:
