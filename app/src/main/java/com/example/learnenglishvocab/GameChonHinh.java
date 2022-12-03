@@ -148,11 +148,11 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
             }
         });
 
-        CardView cvGuildGame2 = findViewById(R.id.cvhdg2);
-        cvGuildGame2.setOnClickListener(new View.OnClickListener() {
+        CardView cvGuildGame1 = findViewById(R.id.cvhdg2);
+        cvGuildGame1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent1 = new Intent(GameChonHinh.this,GuildGameXepChu.class);
+                Intent intent1 = new Intent(GameChonHinh.this,HuongDanActivity.class);
                 startActivity(intent1);
             }
         });
