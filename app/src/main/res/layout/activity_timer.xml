@@ -19,7 +19,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="36dp"
         android:layout_marginHorizontal="26dp"
-        android:text="Set Alarm"
+        android:text="Đặt lời Nhắc học"
         android:textSize="26dp"/>
 
     <Button
@@ -28,7 +28,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="8dp"
         android:layout_marginHorizontal="26dp"
-        android:text="Cancel Alarm"
+        android:text="Dừng nhắc"
         android:textSize="26dp"/>
 
 </LinearLayout>

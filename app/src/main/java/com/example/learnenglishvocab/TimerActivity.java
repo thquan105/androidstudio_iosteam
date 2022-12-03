@@ -1,5 +1,7 @@
 package com.example.learnenglishvocab;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlarmManager;
@@ -9,6 +11,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
@@ -45,6 +48,7 @@ public class TimerActivity extends AppCompatActivity {
 
             setAlarm();
 
+
         }
     });
 
@@ -71,7 +75,7 @@ public class TimerActivity extends AppCompatActivity {
         }
 
         alarmManager.cancel(pendingIntent);
-        Toast.makeText(this, "Alarm Cancelled", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Đã dừng nhắc", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -96,11 +100,9 @@ public class TimerActivity extends AppCompatActivity {
                 time = time + 1000*60*60*24;
             }
         }
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,time,1000,pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP,time,pendingIntent);
 
-        Toast.makeText(this, "Alarm set Successfully", Toast.LENGTH_SHORT).show();
-
-
+        Toast.makeText(this, "Đã lên lịch nhắc", Toast.LENGTH_SHORT).show();
 
     }
 

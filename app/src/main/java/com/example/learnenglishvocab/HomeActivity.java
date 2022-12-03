@@ -20,6 +20,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -173,11 +174,13 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.notification:
             {
+                Toast.makeText(this, "Chức năng sẽ sớm được ra mắt.", Toast.LENGTH_SHORT).show();
                 break;
             }
             case R.id.hengio:
             {
                 startActivity(new Intent(HomeActivity.this, TimerActivity.class));
+                break;
             }
             case R.id.share:
             {
@@ -190,6 +193,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.rate:
             {
+                Toast.makeText(this, "Chức năng sẽ sớm được ra mắt.", Toast.LENGTH_SHORT).show();
                 break;
             }
             case R.id.feedback:
