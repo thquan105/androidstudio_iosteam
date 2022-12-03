@@ -73,9 +73,9 @@
                 android:fontFamily="@font/roboto"
                 android:gravity="center"
                 android:scaleType="fitCenter"
-                android:text="TRA CỨU"
+                android:text="PHIÊN DỊCH"
                 android:textColor="@color/white"
-                android:textSize="40sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -88,9 +88,9 @@
                 android:fontFamily="@font/roboto"
                 android:gravity="center"
                 android:scaleType="fitCenter"
-                android:text="TRÒ CHƠI 1"
+                android:text="GAME CHỌN HÌNH"
                 android:textColor="@color/white"
-                android:textSize="40sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -103,9 +103,9 @@
                 android:fontFamily="@font/roboto"
                 android:gravity="center"
                 android:scaleType="fitCenter"
-                android:text="TRÒ CHƠI 2"
+                android:text="GAME XẾP CHỮ"
                 android:textColor="@color/white"
-                android:textSize="40sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </RelativeLayout>
