@@ -1,5 +1,7 @@
 package com.example.learnenglishvocab;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,6 +10,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -27,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class GameChonHinh extends AppCompatActivity {
+public class GameChonHinh extends AppCompatActivity implements InterfaceClickCard{
 
     private RecyclerView rcvGame1;
     private Button btQuayLai, btTiepTheo,btKiemtra;
@@ -53,50 +56,72 @@ public class GameChonHinh extends AppCompatActivity {
         rcvGame1.setLayoutManager(gridLayoutManager);
 
 
-
         arrFirebase = new ArrayList<>();
-        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
-        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
-        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
-        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
-
-//       FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        db.collection("TuVung")
-////               .whereLessThan("")
-//                .get()
-//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//                    @Override
-//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                        List<DocumentSnapshot> snapshotslist = queryDocumentSnapshots.getDocuments();
-//                        for(DocumentSnapshot snapshot:snapshotslist){
-//                            String tuvung= snapshot.getString("TuVung");
-//                            String Nghia = snapshot.getString("NghiaViet");
-//                            String HinhAnh = snapshot.getString("HinhAnh");
-//                            if (snapshot.getString("TuVung").length()>0 && snapshot.getString("NghiaViet").length()>0 && snapshot.getString("HinhAnh").length()>0){
+        arrGame = new ArrayList<>();
+        arrTuVung = new ArrayList<>();
+//        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
+//        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
+//        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
+//        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
 //
-//                                arrFirebase.add(new Game1(tuvung,Nghia,HinhAnh));
+
+       FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("TuVung")
+//               .whereLessThan("")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<DocumentSnapshot> snapshotslist = queryDocumentSnapshots.getDocuments();
+                        for(DocumentSnapshot snapshot:snapshotslist){
+                            String tuvung= snapshot.getString("TuVung");
+                            String Nghia = snapshot.getString("NghiaViet");
+                            String HinhAnh = snapshot.getString("HinhAnh");
+                            if (snapshot.getString("TuVung").length()>0 && snapshot.getString("NghiaViet").length()>0 && snapshot.getString("HinhAnh").length()>0){
+
+                                arrFirebase.add(new Game1(tuvung,Nghia,HinhAnh));
 //                                if(arrFirebase.size()==0)
 //                                    Toast.makeText(GameChonHinh.this, "Thuaaaa", Toast.LENGTH_SHORT).show();
 //                                else
 //                                    Toast.makeText(GameChonHinh.this, "Ngon"+ arrFirebase.size(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//                    }
-//                });
-        //thuchien(arrGame);
-        adapter = new Game1Adapter(arrFirebase,this);
-        rcvGame1.setAdapter(adapter);
+                            }
+                        }
+
+                        arrTuVung = arrFirebase;
+                        arrGame = thuchien(arrGame);
+
+                        adapter = new Game1Adapter(arrGame, GameChonHinh.this);
+                        rcvGame1.setAdapter(adapter);
+                        adapter = new Game1Adapter(arrGame, new InterfaceClickCard() {
+                            @Override
+                            public void onItemClickCard(Game1 game1) {
+                                Toast.makeText(GameChonHinh.this, game1.getNghiatuvung(), Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "Day ne loi o day ne");
+                                showCustomDialog(true);
+                    }
+                });
+            }
+        });
     }
+
+    //arrGame: list Đáp ÁN
+    //arrFirebase: all 10 tu
+    //arrTuVung: tuong duong arrFire dung de remove
+
     private ArrayList<Game1> thuchien (ArrayList<Game1> arr){
-        arrGame.add(arrFirebase.get(viTriTu));
+        // Lấy từ thứ 0
+        arr.add(arrFirebase.get(viTriTu));
+        //
         tvTuvung.setText(arrFirebase.get(viTriTu).getTuvung());
-        arrFirebase.remove(arrGame);
-        xaoTronList(arrFirebase);
-        arrGame.add(arrFirebase.get(1));
-        arrGame.add(arrFirebase.get(2));
-        arrGame.add(arrFirebase.get(3));
-        xaoTronList(arrGame);
-        return arrGame;
+        //xoá từ
+        arrTuVung.removeAll(arr);
+
+        xaoTronList(arrTuVung);
+        arr.add(arrTuVung.get(1));
+        arr.add(arrTuVung.get(2));
+        arr.add(arrTuVung.get(3));
+        xaoTronList(arr);
+        return arr;
     }
 
     private ArrayList<Game1> xaoTronList(ArrayList<Game1> ar) {
@@ -115,6 +140,7 @@ public class GameChonHinh extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
     }
+
 
     private void showCustomDialog(boolean win){
         dialog = new Dialog(GameChonHinh.this);
@@ -166,5 +192,10 @@ public class GameChonHinh extends AppCompatActivity {
     private List<Game1> getGame1List() {
         List<Game1> list = new ArrayList<>();
         return list;
+    }
+
+    @Override
+    public void onItemClickCard(Game1 game1) {
+
     }
 }

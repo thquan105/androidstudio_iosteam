@@ -10,29 +10,31 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.learnenglishvocab.Game1;
 import com.example.learnenglishvocab.GameChonHinh;
+import com.example.learnenglishvocab.InterfaceClickCard;
 import com.example.learnenglishvocab.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Game1Adapter extends RecyclerView.Adapter<Game1Adapter.Game1ViewHolder> {
+    private InterfaceClickCard interfaceClickCard;
+    ArrayList<Game1> game1List;
+    Context ctx;
 
-    private ArrayList<Game1> game1List;
-    private Context ctx;
-
-    public Game1Adapter(ArrayList<Game1> game1List, GameChonHinh gameChonHinh){
-
+    public Game1Adapter(ArrayList<Game1> game1List, InterfaceClickCard interfaceClickCard) {
+        this.interfaceClickCard = interfaceClickCard;
         this.game1List = game1List;
-        this.ctx = ctx;
-
     }
+
     @NonNull
     @Override
     public Game1ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,12 +46,26 @@ public class Game1Adapter extends RecyclerView.Adapter<Game1Adapter.Game1ViewHol
     @Override
     public void onBindViewHolder(@NonNull Game1ViewHolder holder, int position) {
         Game1 game1 = game1List.get(position);
-        if (game1 != null){
+        if (game1 == null){
             Log.d(TAG,"ABCJUKD");
             return;
         }
-        Picasso.with(this.ctx).load(game1.getImg()).into(holder.imgGame);
         holder.tvNghiaTuVung.setText(game1.getNghiatuvung());
+
+        Glide
+                .with(holder.imgGame.getContext())
+                .load(game1.getImg())
+                .placeholder(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark)
+                .fitCenter()
+                .error(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark_normal)
+                .into(holder.imgGame);
+
+        holder.cardView_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                interfaceClickCard.onItemClickCard(game1);
+            }
+        });
 
     }
 
@@ -63,13 +79,16 @@ public class Game1Adapter extends RecyclerView.Adapter<Game1Adapter.Game1ViewHol
 
     public class Game1ViewHolder extends RecyclerView.ViewHolder{
 
-         ImageView imgGame;
-         TextView tvNghiaTuVung;
+         private ImageView imgGame;
+         private TextView tvNghiaTuVung;
+         private CardView cardView_item;
+
         public Game1ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imgGame = itemView.findViewById(R.id.img_game);
             tvNghiaTuVung = itemView.findViewById(R.id.tv_img);
+            cardView_item = itemView.findViewById(R.id.Card_Item_1);
         }
     }
 }

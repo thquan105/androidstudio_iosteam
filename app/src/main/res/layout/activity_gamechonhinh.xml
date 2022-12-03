@@ -90,6 +90,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_game1"
             android:layout_width="match_parent"
+            android:nestedScrollingEnabled="false"
             android:layout_height="400dp"
             android:layout_marginTop="50dp"
             app:layout_constraintStart_toStartOf="parent"
