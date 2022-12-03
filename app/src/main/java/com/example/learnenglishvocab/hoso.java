@@ -12,6 +12,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -20,6 +21,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
@@ -29,22 +31,42 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.github.dhaval2404.imagepicker.ImagePicker;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.core.Tag;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     private TextView tvten,tvdiem,tvngaysinh,tvemail,txt_ten;
-    private ImageView imgAvatar;
+    private ImageView imgAvatar, imgAvtUpdate, imgback;
+    private Button btnDeleteAccount;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
     String userId;
+    Uri uri;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,34 +78,15 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         tvten=this.findViewById(R.id.textView_Ten);
         tvemail=this.findViewById(R.id.textView_Email);
         txt_ten=findViewById(R.id.tv_tenUser);
+        imgAvtUpdate= findViewById(R.id.imgAvtUpdate);
+        btnDeleteAccount= findViewById(R.id.btnDeleteAccount);
+        imgback= findViewById(R.id.imgback);
 
         fAuth=FirebaseAuth.getInstance();
+        fStore = FirebaseFirestore.getInstance();
 
         userId = fAuth.getCurrentUser().getUid();
 
-        fStore.getInstance()
-                .collection("users")
-                .document(userId)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                    @Override
-                    public void onSuccess(DocumentSnapshot documentSnapshot) {
-                        tvten.setText(""+documentSnapshot.getString("HoTen"));
-                        txt_ten.setText(""+documentSnapshot.getString("HoTen"));
-                        tvdiem.setText(""+documentSnapshot.getLong("Diem"));
-                        tvemail.setText(documentSnapshot.getString("Email"));
-                        tvngaysinh.setText(documentSnapshot.getString("NgaySinh"));
-                        //Set hinhanh
-                        Glide
-                                .with(hoso.this)
-                                .load(documentSnapshot.getString("AnhDaiDien"))
-                                .apply(new RequestOptions()
-                                        .placeholder(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark)
-                                        .fitCenter()
-                                        .error(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark_normal))
-                                .into(imgAvatar);
-                    }
-                });
 
 
 
@@ -97,14 +100,130 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
 //            }
 //        });
 
+        initView();
+
+        imgback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(hoso.this, HomeActivity.class));
+                finish();
+            }
+        });
+
+        btnDeleteAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseUser user = fAuth.getCurrentUser();
+
+                String userID = fAuth.getCurrentUser().getUid();
+
+                fStore.collection("users").document(userID)
+                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+
+                            }
+                        });
+
+                user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(hoso.this, "Xóa tài khoản thành công!", Toast.LENGTH_SHORT).show();
+
+                        startActivity(new Intent(hoso.this, HeyActivity.class));
+                        finish();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(hoso.this, e.toString(), Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, e.toString());
+                    }
+                });
+
+
+
+            }
+        });
+
+        imgAvtUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ImagePicker.with(hoso.this)
+                        .start();
+
+
+            }
+        });
+
 
 
     }
 
+    private void initView() {
+        fStore.getInstance()
+                .collection("users")
+                .document(userId)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        tvten.setText(""+documentSnapshot.getString("HoTen"));
+                        txt_ten.setText(""+documentSnapshot.getString("HoTen"));
+                        tvdiem.setText(""+documentSnapshot.getLong("Diem"));
+                        tvemail.setText(documentSnapshot.getString("SDT"));
+                        tvngaysinh.setText(documentSnapshot.getString("NgaySinh"));
+                        //Set hinhanh
+                        Glide
+                                .with(hoso.this)
+                                .load(documentSnapshot.getString("AnhDaiDien"))
+                                .apply(new RequestOptions()
+                                        .placeholder(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark)
+                                        .fitCenter()
+                                        .error(com.google.android.gms.base.R.drawable.common_google_signin_btn_icon_dark_normal))
+                                .into(imgAvatar);
+                    }
+                });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        uri = data.getData();
+        imgAvatar.setImageURI(uri);
+
+        setToFireStorage(uri);
+
+    }
+
+    private void setToFireStorage(Uri uri) {
+        StorageReference storageReference= FirebaseStorage.getInstance().getReference().child("ImageFolder");
+        final StorageReference ImageReference=storageReference.child("112233");
+        ImageReference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                ImageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+
+                        updateUserProfile(uri);
 
 
-
-
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(hoso.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(hoso.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
 
     public void showPopup(View v){
@@ -165,7 +284,43 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         btnluuchinhsuatk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(hoso.this, "đã lưu thay đổi", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(hoso.this, "đã lưu thay đổi", Toast.LENGTH_SHORT).show();
+
+                FirebaseUser user;
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                final String email = user.getEmail();
+                String oldpass = edtmatkhaucu.getText().toString();
+
+                final String newPass  = edtmatkhaumoi.getText().toString();
+                if(newPass.equals(edtxacnhanmatkhau.getText().toString())){
+                    AuthCredential credential = EmailAuthProvider.getCredential(email,oldpass);
+
+                    user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                user.updatePassword(newPass).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(!task.isSuccessful()){
+                                            Toast.makeText(hoso.this, "Cập nhật mật khẩu thất bại", Toast.LENGTH_SHORT).show();
+                                        }else {
+                                            Toast.makeText(hoso.this, "Cập nhật mật khẩu thành công", Toast.LENGTH_SHORT).show();
+                                            dialog.dismiss();
+                                        }
+                                    }
+                                });
+                            }else {
+                                edtmatkhaucu.setError("Mật khẩu không đúng!");
+                                Toast.makeText(hoso.this, task.getException().getLocalizedMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                }else{
+                    edtxacnhanmatkhau.setError("Mật khẩu xác nhập không khớp!");
+                }
+
+
             }
         });
         dialog.show();
@@ -202,12 +357,57 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                 dialog.dismiss();
             }
         });
+
         btnluuchinhsuattcn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(hoso.this, "đã lưu thay đổi", Toast.LENGTH_SHORT).show();
+                String ten = edtten.getText().toString();
+                String ngaySinh = edtngaysinh.getText().toString();
+                String sdt = edtemail.getText().toString();
+
+                updateUserProfile(ten, ngaySinh, sdt);
+                initView();
+                dialog.dismiss();
+
             }
         });
         dialog.show();
     }
+    
+    private void updateUserProfile(String ten, String ngaySinh, String sdt){
+        String userID = fAuth.getCurrentUser().getUid();
+
+        DocumentReference documentReference = fStore.collection("users").document(userID);
+        Map<String, Object> user = new HashMap<>();
+        user.put("HoTen", ten);
+        user.put("NgaySinh", ngaySinh);
+        user.put("SDT", sdt);
+
+        documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(hoso.this, "Cập nhập thông tin thành công!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+    private void updateUserProfile(Uri uri){
+        String userID = fAuth.getCurrentUser().getUid();
+
+        DocumentReference documentReference = fStore.collection("users").document(userID);
+        Map<String, Object> user = new HashMap<>();
+        user.put("AnhDaiDien", uri.toString());
+
+        documentReference.update(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(hoso.this, "Cập nhập ảnh thành công!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+
+    
 }

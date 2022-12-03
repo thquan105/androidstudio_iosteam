@@ -25,13 +25,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent=".2"
-            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.259"
+            app:layout_constraintVertical_bias="0.272"
             app:layout_constraintWidth_percent=".5" />
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgAvtUpdate"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:src="@drawable/ic_add_avt"
@@ -76,6 +76,7 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageView
+            android:id="@+id/imgback"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
@@ -177,7 +178,7 @@
                 android:paddingLeft="20dp"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Email :"
+                android:text="SDT :"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
@@ -226,7 +227,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnDeleteAccount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="40dp"

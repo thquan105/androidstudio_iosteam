@@ -64,7 +64,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Email"
+            android:text="Số điện thoại:"
             android:textColor="@color/black"
             android:gravity="left"
             android:textSize="20sp"
@@ -73,7 +73,7 @@
             android:id="@+id/edt_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="email"
+            android:hint="Số điện thoại"
             android:textSize="20sp"
             android:background="@drawable/edt_bgr_corner"
             android:padding="16dp"
