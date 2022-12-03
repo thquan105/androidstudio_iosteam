@@ -29,7 +29,24 @@
                     android:layout_height="40dp"
                     android:scaleType="centerCrop"
                     android:src="@drawable/previous"/>
+            </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvhdg2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="250dp"
+                android:layout_marginRight="7dp"
+                android:layout_alignParentEnd="true"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginTop="7dp"
+                >
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/guild"/>
             </androidx.cardview.widget.CardView>
 
         </RelativeLayout>

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
@@ -39,7 +40,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     private TuKhoaAdapter chuAdapter,dapAnAdapter;
     private CardView cvRefresh, cvGoiY, cvSpeak;
     private Dialog dialog;
-    private String tuTA,tuTV;
+    private String tuTA,tuTV, idNhom;
     private int viTriTu = 0;
     private GridLayoutManager gridLayoutManagerchu,gridLayoutManagerAnswer;
     private TextView txtTuTV,txtGoiY;
@@ -47,6 +48,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
     private ArrayList<TuVungXepchu> arrTuVung;
     private ProgressDialog progressDialog;
     private TextToSpeech textToSpeech;
+
 
 
     @Override
@@ -62,6 +64,9 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
 //        arrTuVung.add(new TuVungXepchu("Solution","Giải pháp"));
 
 
+        Intent intent = getIntent();
+        idNhom = intent.getStringExtra("IDNhom");
+
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Loading...");
@@ -69,7 +74,7 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
 
             FirebaseFirestore db = FirebaseFirestore.getInstance();
             db.collection("TuVung")
-//                    .whereEqualTo("IDNhomTu","02")
+                    .whereEqualTo("IDNhomTu",idNhom)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -86,7 +91,12 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
                         if (progressDialog.isShowing()){
                             progressDialog.dismiss();
                         }
+                        try {
                             Khoitao();
+                        }catch (Exception e){
+                            finish();
+                            Toast.makeText(GameXepChu.this,"Chưa có dữ liệu",Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
@@ -100,6 +110,14 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
             }
         });
 
+        CardView cvGuildGame2 = findViewById(R.id.cvhdg2);
+        cvGuildGame2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(GameXepChu.this,GuildGameXepChu.class);
+                startActivity(intent1);
+            }
+        });
 
         cvSpeak = findViewById(R.id.cvSpeak);
         cvSpeak.setOnClickListener(new View.OnClickListener() {
@@ -253,18 +271,16 @@ public class GameXepChu extends AppCompatActivity implements InterfaceClickChu {
                     }
                     if(check==arrDung.size()){
                         if (viTriTu == arrTuVung.size()-1){
-//                Toast.makeText(GameXepChu.this,"hoàn thành",Toast.LENGTH_SHORT).show();
                             startSound(R.raw.traloidung);
                             showCustomDialog(true);
                             TextView txtChucmung = dialog.findViewById(R.id.txtThongbaodialog);
                             txtChucmung.setText("Hoàn thành");
                             Button btn = dialog.findViewById(R.id.btnDlgG2Dung);
-                            btn.setText("OK");
+                            btn.setText("Thoát");
                             btn.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-//                                    finish();
-//                                    System.exit(0);
+                                    finish();
                                 }
                             });
                         }
