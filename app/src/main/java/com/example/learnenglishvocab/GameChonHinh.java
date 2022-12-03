@@ -11,6 +11,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
@@ -42,6 +43,7 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
     private ImageButton btnPhatAm, btnClose;
     private ArrayList<Game1> arrFirebase, arrGame, arrTuVung;
     private Dialog dialog;
+    private MediaPlayer clicksound;
     private Game1Adapter adapter;
     private int viTriTu = 0;
     private TextToSpeech textToSpeech;
@@ -99,6 +101,7 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
 
                                 if(game1.getTuvung().equals(tvTuvung.getText().toString())){
                                     if(viTriTu == arrFirebase.size()-1){
+                                        startSound(R.raw.traloidung);
                                         showCustomDialog(true);
                                         TextView txtChucmung = dialog.findViewById(R.id.txtThongbaodialog);
                                         txtChucmung.setText("Hoàn thành");
@@ -111,12 +114,15 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
                                             }
                                         });
                                     }
-                                   else
+                                   else{
+                                        startSound(R.raw.traloidung);
                                         showCustomDialog(true);
+                                    }
+
                                 }
                                 else{
                                     showCustomDialog(false);
-
+                                    startSound(R.raw.traloisai);
                                 }
 
                             }
@@ -166,6 +172,19 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
         });
 
 
+    }
+
+    private void startSound(int resources){
+        clicksound = MediaPlayer.create(GameChonHinh.this, resources);
+        clicksound.start();
+        try {
+            if (clicksound.isPlaying()) {
+                clicksound.stop();
+                clicksound.release();
+//                        clicksound = null;
+                clicksound = MediaPlayer.create(GameChonHinh.this, resources);
+            } clicksound.start();
+        } catch(Exception e) { e.printStackTrace(); }
     }
 
 
