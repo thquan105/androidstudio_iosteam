@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class HeyActivity extends AppCompatActivity {
 
     private Button btnDangKyHey, btnDangNhapHey;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +22,10 @@ public class HeyActivity extends AppCompatActivity {
 
         btnDangKyHey = findViewById(R.id.btnDangKyHey);
         btnDangNhapHey = findViewById(R.id.btnDangNhapHey);
+        mAuth = FirebaseAuth.getInstance();
+
+
+
 
         btnDangKyHey.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -36,5 +44,16 @@ public class HeyActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        if (firebaseUser != null){
+            startActivity(new Intent(HeyActivity.this, HomeActivity.class));
+            finish();
+        }
     }
 }
