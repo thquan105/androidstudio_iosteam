@@ -51,7 +51,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/edt_bgr_corner"
-            android:hint="Tên đăng nhập"
+            android:hint="Tên người dùng"
+            android:inputType="textPersonName"
             android:padding="16dp"
             android:textSize="20sp" />
     </LinearLayout>
@@ -74,6 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Số điện thoại"
+            android:inputType="phone"
             android:textSize="20sp"
             android:background="@drawable/edt_bgr_corner"
             android:padding="16dp"

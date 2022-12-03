@@ -105,7 +105,6 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         imgback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(hoso.this, HomeActivity.class));
                 finish();
             }
         });
