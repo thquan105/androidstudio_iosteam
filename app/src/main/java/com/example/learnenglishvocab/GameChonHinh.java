@@ -3,10 +3,12 @@ package com.example.learnenglishvocab;
 import static android.content.ContentValues.TAG;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -43,6 +45,7 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
     private Game1Adapter adapter;
     private int viTriTu = 0;
     private TextToSpeech textToSpeech;
+    private String idNhom;
 
 
     @Override
@@ -62,10 +65,13 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
         arrTuVung = new ArrayList<>();
 
 
+        Intent intent = getIntent();
+        idNhom = intent.getStringExtra("IDNhom");
+
 
        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("TuVung")
-//               .whereLessThan("")
+                .whereEqualTo("IDNhomTu",idNhom)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
@@ -134,10 +140,20 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
                 }
             }
         });
+
         btnPhatAm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Speak();
+            }
+        });
+
+        CardView cvGuildGame2 = findViewById(R.id.cvhdg2);
+        cvGuildGame2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(GameChonHinh.this,GuildGameXepChu.class);
+                startActivity(intent1);
             }
         });
     }
