@@ -13,8 +13,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.learnenglishvocab.Adapter.Game1Adapter;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -28,9 +31,12 @@ public class GameChonHinh extends AppCompatActivity {
 
     private RecyclerView rcvGame1;
     private Button btQuayLai, btTiepTheo,btKiemtra;
-    private ArrayList<Game1> arrFirebase, arrGame;
+    private TextView tvTuvung;
+    private ArrayList<Game1> arrFirebase, arrGame, arrTuVung;
     private Dialog dialog;
+    private Game1Adapter adapter;
     private int viTriTu = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,44 +46,59 @@ public class GameChonHinh extends AppCompatActivity {
         btQuayLai = findViewById(R.id.btnQuayLai);
         btTiepTheo = findViewById(R.id.btnTiepTheo);
         btKiemtra = findViewById(R.id.btnKiemtra);
-
+        tvTuvung = findViewById(R.id.txtTuvung);
         rcvGame1 = findViewById(R.id.rcv_game1);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         rcvGame1.setLayoutManager(gridLayoutManager);
 
-        Game1Adapter adapter = new Game1Adapter(getGame1List());
-        rcvGame1.setAdapter(adapter);
+
 
         arrFirebase = new ArrayList<>();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("TuVung")
-//               .whereLessThan("")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        List<DocumentSnapshot> snapshotslist = queryDocumentSnapshots.getDocuments();
-                        for(DocumentSnapshot snapshot:snapshotslist){
+        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
+        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
+        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
+        arrFirebase.add(new Game1("Rabiz","Thỏ","https://firebasestorage.googleapis.com/v0/b/learnenglishvocab-6ef61.appspot.com/o/Image%20Category%2Fimg_ca_animal.jpg?alt=media&token=5271a019-e753-45d7-8f90-44f507f0bc50"));
 
-                            if (snapshot.getString("TuVung").length()>0 && snapshot.getString("NghiaViet").length()>0 && snapshot.getString("HinhAnh").length()>0){
-                                arrFirebase.add(new Game1(snapshot.getString("TuVung").toString(),snapshot.getString("NghiaViet").toString(),snapshot.getString("HinhAnh").toString()));
-                            }
-                        }
-                    }
-                });
+//       FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        db.collection("TuVung")
+////               .whereLessThan("")
+//                .get()
+//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                        List<DocumentSnapshot> snapshotslist = queryDocumentSnapshots.getDocuments();
+//                        for(DocumentSnapshot snapshot:snapshotslist){
+//                            String tuvung= snapshot.getString("TuVung");
+//                            String Nghia = snapshot.getString("NghiaViet");
+//                            String HinhAnh = snapshot.getString("HinhAnh");
+//                            if (snapshot.getString("TuVung").length()>0 && snapshot.getString("NghiaViet").length()>0 && snapshot.getString("HinhAnh").length()>0){
+//
+//                                arrFirebase.add(new Game1(tuvung,Nghia,HinhAnh));
+//                                if(arrFirebase.size()==0)
+//                                    Toast.makeText(GameChonHinh.this, "Thuaaaa", Toast.LENGTH_SHORT).show();
+//                                else
+//                                    Toast.makeText(GameChonHinh.this, "Ngon"+ arrFirebase.size(), Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    }
+//                });
+        //thuchien(arrGame);
+        adapter = new Game1Adapter(arrFirebase,this);
+        rcvGame1.setAdapter(adapter);
     }
-    private void thuchien (){
+    private ArrayList<Game1> thuchien (ArrayList<Game1> arr){
         arrGame.add(arrFirebase.get(viTriTu));
+        tvTuvung.setText(arrFirebase.get(viTriTu).getTuvung());
         arrFirebase.remove(arrGame);
         xaoTronList(arrFirebase);
         arrGame.add(arrFirebase.get(1));
         arrGame.add(arrFirebase.get(2));
         arrGame.add(arrFirebase.get(3));
         xaoTronList(arrGame);
-
-
+        return arrGame;
     }
+
     private ArrayList<Game1> xaoTronList(ArrayList<Game1> ar) {
         Random rnd = new Random();
         for (int i = ar.size() - 1; i > 0; i--) {
@@ -90,6 +111,8 @@ public class GameChonHinh extends AppCompatActivity {
     }
 
     private void Lammoircv() {
+        arrGame.removeAll(arrGame);
+        adapter.notifyDataSetChanged();
 
     }
 
