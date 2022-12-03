@@ -245,7 +245,7 @@
         android:layout_marginStart="68dp"
         android:layout_marginTop="43dp"
         android:gravity="center"
-        android:text="Tôi chưa có tài khoản"
+        android:text="Chưa có tài khoản"
         android:textAlignment="center"
         android:textColor="#000"
         android:textSize="20dp"
