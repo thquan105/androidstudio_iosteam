@@ -91,17 +91,17 @@ public class GameChonHinh extends AppCompatActivity implements InterfaceClickCar
                         arrGame = thuchien(arrGame);
 
                         adapter = new Game1Adapter(arrGame, GameChonHinh.this);
-                        rcvGame1.setAdapter(adapter);
+
                         adapter = new Game1Adapter(arrGame, new InterfaceClickCard() {
                             @Override
                             public void onItemClickCard(Game1 game1) {
                                 Toast.makeText(GameChonHinh.this, game1.getNghiatuvung(), Toast.LENGTH_SHORT).show();
-                                Log.d(TAG, "Day ne loi o day ne");
                                 showCustomDialog(true);
+                            }
+                        });
+                        rcvGame1.setAdapter(adapter);
                     }
                 });
-            }
-        });
     }
 
     //arrGame: list Đáp ÁN
