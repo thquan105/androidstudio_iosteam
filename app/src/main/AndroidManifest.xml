@@ -21,6 +21,9 @@
             android:name=".FeedbackActivity"
             android:exported="false" />
         <activity
+            android:name=".GuildGameXepChu"
+            android:exported="false" />
+        <activity
             android:name=".SettingsActivity"
             android:exported="false" />
         <activity
