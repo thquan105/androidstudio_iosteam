@@ -5,11 +5,17 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -53,6 +59,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,6 +71,7 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
     FirebaseFirestore fStore;
     String userId, userMail;
     Uri uri;
+    private SharedPreferences sharedPreferences;
 
 
 
@@ -116,36 +124,55 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         btnDeleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseUser user = fAuth.getCurrentUser();
+                AlertDialog.Builder alertDiaLog = new AlertDialog.Builder(view.getContext());
+                alertDiaLog.setTitle("Thông báo");
+                alertDiaLog.setMessage("Bạn có muốn xóa tài khoản ?");
+                alertDiaLog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        FirebaseUser user = fAuth.getCurrentUser();
 
-                String userID = fAuth.getCurrentUser().getUid();
+                        String userID = fAuth.getCurrentUser().getUid();
 
-                fStore.collection("users").document(userID)
-                        .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        fStore.collection("users").document(userID)
+                                .delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+
+                                    }
+                                });
+
+                        user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
+                                Toast.makeText(hoso.this, "Xóa tài khoản thành công!", Toast.LENGTH_SHORT).show();
 
+                                sharedPreferences= getSharedPreferences("dataLogin", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.remove("email");
+                                editor.remove("pass");
+                                editor.remove("checked");
+                                editor.commit();
+
+                                startActivity(new Intent(hoso.this, HeyActivity.class));
+                                finish();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(hoso.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, e.toString());
                             }
                         });
-
-                user.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(hoso.this, "Xóa tài khoản thành công!", Toast.LENGTH_SHORT).show();
-
-                        startActivity(new Intent(hoso.this, HeyActivity.class));
-                        finish();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(hoso.this, e.toString(), Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, e.toString());
                     }
                 });
+                alertDiaLog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 
-
-
+                    }
+                });
+                alertDiaLog.show();
             }
         });
 
@@ -309,6 +336,12 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                                             Toast.makeText(hoso.this, "Cập nhật mật khẩu thất bại", Toast.LENGTH_SHORT).show();
                                         }else {
                                             Toast.makeText(hoso.this, "Cập nhật mật khẩu thành công", Toast.LENGTH_SHORT).show();
+
+                                            sharedPreferences= getSharedPreferences("dataLogin", MODE_PRIVATE);
+                                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                                            editor.remove("pass");
+                                            editor.commit();
+
                                             dialog.dismiss();
                                         }
                                     }
