@@ -235,6 +235,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             {
                 mAuth.signOut();
                 startActivity( new Intent(HomeActivity.this, HeyActivity.class));
+                backgroundMediaPlayer.mediaPlayer.stop();
                 finish();
                 break;
             }
