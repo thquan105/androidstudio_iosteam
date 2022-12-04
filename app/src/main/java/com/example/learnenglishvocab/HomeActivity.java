@@ -3,6 +3,7 @@ package com.example.learnenglishvocab;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -35,7 +36,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private ImageView btMenu, btSettings;
     private RelativeLayout contentView;
     private SharedPreferences sharedPreferences;
-    private TextView bt_cate_game_1, bt_cate_game_2, bt_translation;
+    private CardView bt_cate_game_1, bt_cate_game_2, bt_translation;
     private BackgroundMediaPlayer backgroundMediaPlayer;
     private int i = 1;
 

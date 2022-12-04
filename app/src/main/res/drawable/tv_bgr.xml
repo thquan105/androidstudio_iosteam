@@ -6,10 +6,10 @@
         android:bottomRightRadius="30dp"
         android:bottomLeftRadius="30dp"/>
     <stroke android:width="1dp"
-        android:color="@color/black"/>
+        android:color="#373737"/>
     <gradient
-        android:angle="180"
-        android:startColor="#EAD6EE"
-        android:endColor="#A0F1EA"/>
+        android:startColor="#CDF6F3"
+        android:centerColor="#EEF8F6"
+        android:endColor="#F6DBF8"/>
 
 </shape>

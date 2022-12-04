@@ -5,39 +5,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".hoso">
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:cardBackgroundColor="@color/white"
+        tools:ignore="MissingConstraints">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/imgback"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:padding="3dp"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/ic_baseline_arrow_back_ios_new_24" />
+
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_alignParentEnd="true"
+
+                android:src="@drawable/ic_3cham" />
+
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/bgr_top"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:background="@drawable/linear_bg"
+        android:background="@drawable/background_profile"
+        android:elevation="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/bar">
 
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="205dp"
+            android:layout_height="130dp"
+            android:src="@drawable/bgr_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".2"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.275"
+            app:layout_constraintWidth_percent=".5" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_avt"
             android:layout_width="205dp"
-            android:layout_height="124dp"
+            android:layout_height="125dp"
             android:src="@drawable/icon_avt"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent=".2"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.272"
+            app:layout_constraintVertical_bias="0.28"
             app:layout_constraintWidth_percent=".5" />
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgAvtUpdate"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/ic_add_avt"
             app:layout_constraintBottom_toBottomOf="@+id/img_avt"
             app:layout_constraintEnd_toEndOf="@+id/img_avt"
-            app:layout_constraintHorizontal_bias="0.916"
+            app:layout_constraintHorizontal_bias="0.787"
             app:layout_constraintStart_toStartOf="@+id/img_avt"
             app:layout_constraintTop_toTopOf="@+id/img_avt"
             app:layout_constraintVertical_bias="1.0" />
@@ -46,48 +92,33 @@
             android:id="@+id/tv_tenUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="36dp"
             android:text="UserABC"
-            android:textColor="@color/black"
+            android:elevation="10dp"
+            android:textColor="#FFFFFF"
             android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.131"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/img_avt"
+            app:layout_constraintVertical_bias="0.307" />
+
+        <TextView
+            android:id="@+id/tv_emailUser"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Example@gmail.com"
+            android:textColor="@color/white"
+            android:elevation="10dp"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.131"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tenUser"
             app:layout_constraintVertical_bias="0.0" />
-
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:onClick="showPopup"
-            android:padding="5dp"
-            android:src="@drawable/ic_3cham"
-            app:layout_constraintBottom_toTopOf="@+id/img_avt"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck" />
-
-        <ImageView
-            android:id="@+id/imgback"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_baseline_arrow_back_ios_new_24"
-            app:layout_constraintBottom_toTopOf="@+id/img_avt"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.465" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -95,12 +126,11 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="30dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bgr_top"
+        android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintWidth_percent=".8">
@@ -109,14 +139,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:paddingVertical="7dp"
+            android:gravity="center_vertical"
             android:background="@drawable/tv_bgr"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:gravity="center"
                 android:text="Điểm :"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/black"
@@ -124,14 +155,12 @@
 
             <TextView
                 android:id="@+id/textView_Diem"
-                android:layout_width="223dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
                 android:text="120"
-                android:textAlignment="center"
-                android:textColor="#00CA45"
-                android:textSize="40sp"
-                android:textStyle="bold" />
+                android:paddingStart="10dp"
+                android:textColor="#000000"
+                android:textSize="30sp"/>
 
         </LinearLayout>
 
@@ -139,6 +168,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:paddingVertical="10dp"
+            android:gravity="center_vertical"
             android:background="@drawable/tv_bgr"
             android:orientation="horizontal">
 
@@ -146,8 +177,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:text="Tên :"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -157,8 +186,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:text="UserABC"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -169,6 +196,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:paddingVertical="10dp"
+            android:gravity="center_vertical"
             android:background="@drawable/tv_bgr"
             android:orientation="horizontal">
 
@@ -176,20 +205,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:text="SDT :"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/textView_Email"
+                android:id="@+id/textView_SDT"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:text="abc@gmail.com"
+                android:text="0123456789"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -199,6 +224,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:paddingVertical="10dp"
+            android:gravity="center_vertical"
             android:background="@drawable/tv_bgr"
             android:orientation="horizontal">
 
@@ -206,8 +233,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:text="Ngày sinh :"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -217,8 +242,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingLeft="20dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
                 android:text="26/02/2002"
                 android:textColor="@color/black"
                 android:textSize="20sp"
@@ -226,18 +249,21 @@
 
         </LinearLayout>
 
-        <Button
-            android:id="@+id/btnDeleteAccount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="40dp"
-            android:layout_marginTop="40dp"
-            android:backgroundTint="#000000"
-            android:text="Xóa tài khoản"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp" />
-
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnDeleteAccount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
+        android:background="@drawable/boder_circle"
+        android:backgroundTint="#000000"
+        android:layout_marginBottom="30dp"
+        android:text="Xóa tài khoản"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="40dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

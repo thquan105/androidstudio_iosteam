@@ -57,12 +57,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
-    private TextView tvten,tvdiem,tvngaysinh,tvemail,txt_ten;
+    private TextView tvten,tvdiem,tvngaysinh,tvsdt,tvemail,txt_ten;
     private ImageView imgAvatar, imgAvtUpdate, imgback;
     private Button btnDeleteAccount;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    String userId;
+    String userId, userMail;
     Uri uri;
 
 
@@ -76,7 +76,8 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         tvdiem=this.findViewById(R.id.textView_Diem);
         tvngaysinh=this.findViewById(R.id.textView_nsinh);
         tvten=this.findViewById(R.id.textView_Ten);
-        tvemail=this.findViewById(R.id.textView_Email);
+        tvemail = this.findViewById(R.id.tv_emailUser);
+        tvsdt=this.findViewById(R.id.textView_SDT);
         txt_ten=findViewById(R.id.tv_tenUser);
         imgAvtUpdate= findViewById(R.id.imgAvtUpdate);
         btnDeleteAccount= findViewById(R.id.btnDeleteAccount);
@@ -86,6 +87,9 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
         fStore = FirebaseFirestore.getInstance();
 
         userId = fAuth.getCurrentUser().getUid();
+        userMail = fAuth.getCurrentUser().getEmail();
+
+
 
 
 
@@ -99,7 +103,7 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
 //                System.out.println(error.toString());
 //            }
 //        });
-
+        tvemail.setText(userMail.trim());
         initView();
 
         imgback.setOnClickListener(new View.OnClickListener() {
@@ -170,7 +174,7 @@ public class hoso extends AppCompatActivity implements PopupMenu.OnMenuItemClick
                         tvten.setText(""+documentSnapshot.getString("HoTen"));
                         txt_ten.setText(""+documentSnapshot.getString("HoTen"));
                         tvdiem.setText(""+documentSnapshot.getLong("Diem"));
-                        tvemail.setText(documentSnapshot.getString("SDT"));
+                        tvsdt.setText(documentSnapshot.getString("SDT"));
                         tvngaysinh.setText(documentSnapshot.getString("NgaySinh"));
                         //Set hinhanh
                         Glide
