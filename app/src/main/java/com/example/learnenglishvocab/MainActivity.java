@@ -27,5 +27,6 @@ public class MainActivity extends AppCompatActivity {
         firestore = FirebaseFirestore.getInstance();
         Map<String,Object> user = new HashMap<>();
         user.put("firstName","Easy");
+        //commit
     }
 }
