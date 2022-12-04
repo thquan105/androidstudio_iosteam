@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:padding="16dp"
-            android:text="Chỉnh sửa thông tin    cá nhân"
+            android:text="Chỉnh sửa thông tin\ncá nhân"
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold" />
