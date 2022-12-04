@@ -37,7 +37,7 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
     private RelativeLayout contentView;
     private SharedPreferences sharedPreferences;
     private CardView bt_cate_game_1, bt_cate_game_2, bt_translation;
-    private BackgroundMediaPlayer backgroundMediaPlayer;
+    BackgroundMediaPlayer backgroundMediaPlayer;
     private int i = 1;
 
 
@@ -234,8 +234,10 @@ public class HomeActivity extends AppCompatActivity implements NavigationView.On
             case R.id.logout:
             {
                 mAuth.signOut();
+                if (backgroundMediaPlayer.mediaPlayer != null){
+                    backgroundMediaPlayer.mediaPlayer.stop();
+                }
                 startActivity( new Intent(HomeActivity.this, HeyActivity.class));
-                backgroundMediaPlayer.mediaPlayer.stop();
                 finish();
                 break;
             }

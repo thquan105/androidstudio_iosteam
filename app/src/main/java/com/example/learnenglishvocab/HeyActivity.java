@@ -32,6 +32,7 @@ public class HeyActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentSignUp = new Intent(HeyActivity.this, SignUpctivity.class);
                 startActivity(intentSignUp);
+                finish();
             }
         });
 
@@ -41,6 +42,7 @@ public class HeyActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentSignIn = new Intent(HeyActivity.this, SignInActivity.class);
                 startActivity(intentSignIn);
+                finish();
             }
         });
 
