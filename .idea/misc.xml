@@ -3,6 +3,35 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/drawable/backgroundmain.xml" value="0.203" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/drawable/boder_circle.xml" value="0.1225" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/drawable/ic_logout.xml" value="0.1225" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/drawable/ic_profile.xml" value="0.1225" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/drawable/tv_bgr.xml" value="0.2235" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_about_us.xml" value="0.3875" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_caidat.xml" value="0.38153846153846155" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_feedback.xml" value="0.3875" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_game1.xml" value="0.3333333333333333" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_game2.xml" value="0.20208333333333334" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_game_xep_chu.xml" value="0.3574074074074074" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_gamechonhinh.xml" value="0.3875" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_guild_game_xep_chu.xml" value="0.3875" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_home.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_hoso.xml" value="0.25" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_huong_dan.xml" value="0.3875" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_main.xml" value="0.18425925925925926" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_settings.xml" value="0.3875" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_sign_in.xml" value="0.3574074074074074" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_sign_upctivity.xml" value="0.3875" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_timer.xml" value="0.3875" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/activity_translation.xml" value="0.33" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/dialog_about_us.xml" value="0.3875" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/header.xml" value="0.3875" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/item_category.xml" value="0.3333333333333333" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/item_category2.xml" value="0.38645833333333335" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/layout_dialog_chinhsuataikhoan.xml" value="0.3875" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/layout/layout_dialog_chinhsuattcn.xml" value="0.3875" />
+        <entry key="..\:/AndroidStudioProjects/LearnEnglishVocab/app/src/main/res/menu/main_menu.xml" value="0.2601851851851852" />
       </map>
     </option>
   </component>

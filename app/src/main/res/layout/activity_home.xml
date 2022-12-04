@@ -43,6 +43,17 @@
                     android:padding="5dp"
                     android:src="@drawable/ic_menu" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginStart="5sp"
+                    android:fontFamily="@font/roboto"
+                    android:textStyle="bold"
+                    android:text="HELLO"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
+
 
                 <ImageView
                     android:id="@+id/btn_settings"
@@ -135,14 +146,14 @@
                     android:gravity="center"
                     android:text="Game"
                     android:textColor="#000"
-                    android:textSize="35sp"
+                    android:textSize="40sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="220dp"
-                    android:layout_marginTop="70dp"
+                    android:layout_marginTop="80dp"
                     android:fontFamily="@font/roboto"
                     android:gravity="center"
                     android:text="Chọn hình"
@@ -179,14 +190,14 @@
                     android:gravity="center"
                     android:text="Game"
                     android:textColor="#000"
-                    android:textSize="35sp"
+                    android:textSize="40sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="220dp"
-                    android:layout_marginTop="70dp"
+                    android:layout_marginTop="80dp"
                     android:fontFamily="@font/roboto"
                     android:gravity="center"
                     android:text="Xếp chữ"

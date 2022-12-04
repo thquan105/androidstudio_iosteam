@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ public class TimerActivity extends AppCompatActivity {
     private AlarmManager alarmManager;
     private PendingIntent pendingIntent;
     private Button btnSetAlarm, btnCancelAlarm;
+    private ImageView bt_back;
 
 
     @Override
@@ -60,6 +62,14 @@ public class TimerActivity extends AppCompatActivity {
 
         }
     });
+
+        bt_back = (ImageView) findViewById(R.id.btn_back);
+        bt_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
 }
     private void cancelAlarm() {
