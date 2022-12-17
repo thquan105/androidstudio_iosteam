@@ -7,7 +7,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.learnenglishvocab"
+        applicationId "com.ute.learnenglishvocab"
         minSdk 29
         targetSdk 32
         versionCode 1
